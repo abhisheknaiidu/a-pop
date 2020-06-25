@@ -1,19 +1,19 @@
 import React from 'react';
 import { AppBar, Toolbar, Typography, makeStyles } from '@material-ui/core';
 import { HeadsetTwoTone } from '@material-ui/icons';
-
-const useStyles = makeStyles({
+// Got access to theme as well
+const useStyles = makeStyles(theme => ({
     heading: {
-        marginLeft: '10px'
+        marginLeft: theme.spacing(2)
     }
-})
+}))
 
 function Header() {
     //Styles can be used as hooks.
     const classes = useStyles() 
 
     return (
-        <AppBar position="fixed">
+        <AppBar color="primary" position="fixed">
             <Toolbar>
                 <HeadsetTwoTone />
                 <Typography className={classes.heading} variant="h6" component="h1">
