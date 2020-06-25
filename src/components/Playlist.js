@@ -1,5 +1,5 @@
 import React from 'react'
-import { Typography, Avatar, IconButton, makeStyles } from '@material-ui/core'
+import { Typography, Avatar, IconButton, makeStyles, useMediaQuery } from '@material-ui/core'
 import { Delete } from '@material-ui/icons'
 
 const useStyles = makeStyles({
@@ -27,13 +27,15 @@ const useStyles = makeStyles({
  
 function Playlist() {
 
+    const greaterThanMd = useMediaQuery( theme => theme.breakpoints.up('md'))
+
     const song = {
         title: 'Abhishek',
         artist: 'Naidu',
         thumbnail: 'https://avatars0.githubusercontent.com/u/55599878?s=460&u=ed7ab421e2b7b0fdc9fd0ddeae2f73feeb72eede&v=4'
     }
 
-    return (
+    return greaterThanMd && (
     <div style={{ margin: '10px 0' }}>
         <Typography color="textSecondary" variant="button">
             PLAYLIST (5)
