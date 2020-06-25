@@ -1,5 +1,6 @@
 import React from 'react'
-import { Typography } from '@material-ui/core'
+import { Typography, Avatar, IconButton } from '@material-ui/core'
+import { Delete } from '@material-ui/icons'
 
 function Playlist() {
 
@@ -22,9 +23,21 @@ function Playlist() {
 }
 
 function PlaylistSong({ song }) {
+    const { artist, thumbnail, title} = song
     return (
         <div>
-            Playlist Song
+            <Avatar src={thumbnail} alt="Song Thumbnail" />
+            <div>
+            <Typography variant="subtitile2">
+                {title}
+            </Typography>
+            <Typography color="textSecondary" variant="body2">
+                {artist}
+            </Typography>
+            </div>
+            <IconButton>
+                <Delete color="warning"/>
+            </IconButton>
         </div>
     )
 }
