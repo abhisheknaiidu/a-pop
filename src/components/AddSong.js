@@ -122,8 +122,8 @@ async function handleAddSong() {
     // either title, artist, thumbnail field
     function handleInputError(field) {
         // return only if there is a error
-        return error && error.graphQLErrors[0].extensions.path.includes(field)
-        // OR return error?.graphQLErrors[0]?.extensions?.path?.includes(field)
+        // return error && error.graphQLErrors[0].extensions.path.includes(field)
+         return error?.graphQLErrors[0]?.extensions?.path?.includes(field)
     }
 
     //Check whether this song is playable or not,
