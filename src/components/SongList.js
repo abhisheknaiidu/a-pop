@@ -69,7 +69,7 @@ const useStyles = makeStyles( theme => ({
 function Song({ song }) {
 
     const [currentSongPlaying, setCurrentSongPlaying] = React.useState(false)
-    const {state} = React.useContext(SongContext)
+    const {state, dispatch} = React.useContext(SongContext)
     const classes = useStyles()
     const { thumbnail, artist, title, id} = song
 
@@ -78,6 +78,11 @@ function Song({ song }) {
         setCurrentSongPlaying(isSongPlaying)
         //Our dependency array
     }, [id, state.song.id, state.isPlaying]) // we have to identify given song by ID
+
+    function handleSongPlay() {
+        dispatch( { type: 'SET_SONG', payload: { song } })
+        dispatch(state.isPlaying ? { type: 'PAUSE_SONG' } : { type: 'PLAY_SONG' })
+    }
 
     return (
         <Card className={classes.container}>
@@ -93,7 +98,7 @@ function Song({ song }) {
                         </Typography>
                     </CardContent>
                     <CardActions>
-                        <IconButton size="small" color="primary">
+                        <IconButton onClick={handleSongPlay} size="small" color="primary">
                             {/* here, everyone in the song list, are getting updated, 
                             but we just need the appropriate one to get updated 
                             so we can check for that using useEffects */}
