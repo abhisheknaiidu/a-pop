@@ -1,8 +1,9 @@
 import React from 'react'
 import { Card, CircularProgress, CardMedia, CardContent, Typography, CardActions, IconButton, makeStyles} from '@material-ui/core';
-import { PlayArrow, Save } from '@material-ui/icons';
+import { PlayArrow, Save, Pause } from '@material-ui/icons';
 import { useSubscription } from '@apollo/react-hooks';
 import { GET_SONGS } from '../graphql/subscriptions';
+import { SongContext } from '../App';
 
 function SongList() {
 
@@ -66,6 +67,8 @@ const useStyles = makeStyles( theme => ({
 }))
 
 function Song({ song }) {
+
+    const {state} = React.useContext(SongContext)
     const classes = useStyles()
     const { thumbnail, artist, title} = song
     return (
@@ -83,7 +86,7 @@ function Song({ song }) {
                     </CardContent>
                     <CardActions>
                         <IconButton size="small" color="primary">
-                            <PlayArrow/>
+                           { state.isPlaying ? <Pause/> : <PlayArrow/>}
                         </IconButton>
                         <IconButton size="small" color="primary">
                             <Save/>
