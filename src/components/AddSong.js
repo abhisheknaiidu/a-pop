@@ -54,7 +54,7 @@ function AddSong() {
         const thumbnail = `http://img.youtube.com/vi/${video_id}/0.jpg`
         return {
             title,
-            author,
+            artist: author,
             video_id,
             duration,
             thumbnail
