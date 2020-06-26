@@ -4,6 +4,8 @@ import { Link, AddBoxOutlined } from '@material-ui/icons'
 import ReactPlayer from 'react-player'
 import Soundcloud from 'react-player/lib/players/SoundCloud'
 import YoutubePlayer from 'react-player/lib/players/YouTube'
+import { useMutation } from '@apollo/react-hooks'
+import { ADD_SONG } from '../graphql/mutations'
 
 const useStyles = makeStyles( theme => ( {
     container: {
@@ -27,6 +29,8 @@ const useStyles = makeStyles( theme => ( {
 function AddSong() {
     
     const classes = useStyles()
+    // Returns Mutate function
+    const [addSong, { error }] = useMutation(ADD_SONG)
     const[url, setUrl] = React.useState('')
     const [dialog, showDialog] = React.useState(false)
     const [playable, setPlayable] = React.useState(false)
@@ -86,6 +90,42 @@ function AddSong() {
         }))
     }
 
+async function handleAddSong() {
+        // One Approach, but its not gonna helps in catching the errors!
+        // like the exclamations condition added to the end of the every mutation objects
+        // addSong({ variables: { ...song}})
+
+        try {
+            const { url, thumbnail, duration, title, artist } = song
+
+            await addSong({
+                 variables: {
+                     url: url.length > 0 ? url : null,
+                     duration: duration > 0 ? duration : null,
+                     thumbnail: thumbnail.length > 0 ? thumbnail : null,
+                     artist: artist.length > 0 ? artist : null,
+                     title: title.length > 0 ? title : null,
+                 }
+             })
+             handleCloseDialog()
+             setSong({
+                title: '',
+                artist: '',
+                thumbnail: '',
+                duration: 0
+            })
+            setUrl('')
+        } catch(error) {
+            console.error("Error adding Song", error)
+        }
+    }
+    // either title, artist, thumbnail field
+    function handleInputError(field) {
+        // return only if there is a error
+        return error && error.graphQLErrors[0].extensions.path.includes(field)
+        // OR return error?.graphQLErrors[0]?.extensions?.path?.includes(field)
+    }
+
     //Check whether this song is playable or not,
     React.useEffect( () => {
       const isPlayable = YoutubePlayer.canPlay(url) || Soundcloud.canPlay(url)
@@ -97,7 +137,8 @@ function AddSong() {
     }
 
     const { thumbnail, artist, title } = song
-    return (
+    // console.dir(error)
+    return (     
         <div className={classes.container}>
             <Dialog
             className={classes.dialog}
@@ -115,6 +156,8 @@ function AddSong() {
                     margin="dense"
                     name="title"
                     onChange={handleSongDetails}
+                    error={handleInputError('title')}
+                    helperText={handleInputError('title') && 'Fill out the title field'}
                     label="Title"
                     fullWidth
                     />
@@ -122,6 +165,8 @@ function AddSong() {
                     value={artist}
                     margin="dense"
                     name="artist"
+                    error={handleInputError('artist')}
+                    helperText={handleInputError('artist') && 'Fill out the artist field'}
                     onChange={handleSongDetails}
                     label="Artist"
                     fullWidth
@@ -130,6 +175,8 @@ function AddSong() {
                     value={thumbnail}
                     margin="dense"
                     name="thumbnail"
+                    error={handleInputError('thumbnail')}
+                    helperText={handleInputError('thumbnail') && 'Fill out the thumbnail field'}
                     onChange={handleSongDetails}
                     label="Thubmnail"
                     fullWidth
@@ -139,7 +186,10 @@ function AddSong() {
                     <Button onClick={handleCloseDialog} color="secondary">
                         Cancel
                     </Button>
-                    <Button color="primary" variant="outlined">
+                    <Button 
+                    color="primary"
+                    onClick={handleAddSong} 
+                    variant="outlined">
                         Add Song
                     </Button>
                 </DialogActions>
