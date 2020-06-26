@@ -1,7 +1,7 @@
 import React from 'react'
 import Playlist from './Playlist'
 import { Card, CardContent, Typography, IconButton, Slider, CardMedia, makeStyles } from '@material-ui/core'
-import { SkipPrevious, PlayArrow, SkipNext } from '@material-ui/icons'
+import { SkipPrevious, PlayArrow, SkipNext, Pause } from '@material-ui/icons'
 import { SongContext } from '../App'
 
 const useStyles = makeStyles( theme => ({
@@ -35,7 +35,13 @@ const useStyles = makeStyles( theme => ({
 function SongPlayer() {
     const classes = useStyles()
 
-    const { state } = React.useContext(SongContext)
+    const { state, dispatch } = React.useContext(SongContext)
+
+    // It dispatches a new action
+    function handleSongPlay() {
+        dispatch({ type: "PLAY_SONG" })
+    }
+    
     return (
         <>
         <Card className={classes.container} variant="outlined">
@@ -52,8 +58,8 @@ function SongPlayer() {
                 <IconButton>
                     <SkipPrevious/>
                 </IconButton>
-                <IconButton>
-                    <PlayArrow className={classes.playIcon}/>
+                <IconButton onClick={handleSongPlay}>
+                    { state.isPlaying ? <Pause className={classes.playIcon}/> : <PlayArrow className={classes.playIcon}/>}
                 </IconButton>
                 <IconButton>
                     <SkipNext/>
