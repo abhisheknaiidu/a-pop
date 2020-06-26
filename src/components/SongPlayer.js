@@ -2,6 +2,7 @@ import React from 'react'
 import Playlist from './Playlist'
 import { Card, CardContent, Typography, IconButton, Slider, CardMedia, makeStyles } from '@material-ui/core'
 import { SkipPrevious, PlayArrow, SkipNext } from '@material-ui/icons'
+import { SongContext } from '../App'
 
 const useStyles = makeStyles( theme => ({
     container: {
@@ -32,19 +33,19 @@ const useStyles = makeStyles( theme => ({
 }))
 
 function SongPlayer() {
-
     const classes = useStyles()
 
+    const { state } = React.useContext(SongContext)
     return (
         <>
         <Card className={classes.container} variant="outlined">
             <div className={classes.details}>
                 <CardContent className={classes.content}>
                     <Typography variant="h5" component="h3">
-                        Title
+                        { state.song.title }
                     </Typography>
                     <Typography variant="subtitle1" component="p" color="textSecondary">
-                        Artist
+                        { state.song.title }
                     </Typography>
                 </CardContent>
             <div className={classes.controls}>
@@ -69,7 +70,7 @@ function SongPlayer() {
                 />
             </div>
             <CardMedia className={classes.thumbnail}
-            image="https://avatars0.githubusercontent.com/u/55599878?s=460&u=ed7ab421e2b7b0fdc9fd0ddeae2f73feeb72eede&v=4"
+            image={ state.song.thumbnail }
             />
         </Card>
         <Playlist />
