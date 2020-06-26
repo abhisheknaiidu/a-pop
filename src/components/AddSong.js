@@ -76,6 +76,16 @@ function AddSong() {
         })
     }
 
+    function handleSongDetails( event ) {
+        const { name, value } = event.target
+        setSong( prevSongDetails => ({
+            ...prevSongDetails,
+            // Using computed property syntax, we can dyanamically update the syntax
+            // where name is set to value
+            [name]: value
+        }))
+    }
+
     //Check whether this song is playable or not,
     React.useEffect( () => {
       const isPlayable = YoutubePlayer.canPlay(url) || Soundcloud.canPlay(url)
@@ -104,6 +114,7 @@ function AddSong() {
                     value={title}
                     margin="dense"
                     name="title"
+                    onChange={handleSongDetails}
                     label="Title"
                     fullWidth
                     />
@@ -111,6 +122,7 @@ function AddSong() {
                     value={artist}
                     margin="dense"
                     name="artist"
+                    onChange={handleSongDetails}
                     label="Artist"
                     fullWidth
                     />
@@ -118,6 +130,7 @@ function AddSong() {
                     value={thumbnail}
                     margin="dense"
                     name="thumbnail"
+                    onChange={handleSongDetails}
                     label="Thubmnail"
                     fullWidth
                     />
