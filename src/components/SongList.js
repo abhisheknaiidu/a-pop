@@ -1,14 +1,26 @@
 import React from 'react'
 import { Card, CircularProgress, CardMedia, CardContent, Typography, CardActions, IconButton, makeStyles} from '@material-ui/core';
 import { PlayArrow, Save } from '@material-ui/icons';
+import { useQuery } from '@apollo/react-hooks';
+import { GET_SONGS } from '../graphql/queries';
 
 function SongList() {
-    const song = {
-        title: 'Abhishek',
-        artist: 'Naidu',
-        thumbnail: 'https://avatars0.githubusercontent.com/u/55599878?s=460&u=ed7ab421e2b7b0fdc9fd0ddeae2f73feeb72eede&v=4'
+
+    const { data, loading, error } = useQuery(GET_SONGS)
+
+    // const song = {
+    //     title: 'Abhishek',
+    //     artist: 'Naidu',
+    //     thumbnail: 'https://avatars0.githubusercontent.com/u/55599878?s=460&u=ed7ab421e2b7b0fdc9fd0ddeae2f73feeb72eede&v=4'
+    // }
+
+    if(error) {
+        return(
+            <div>
+                Error fetching songs
+            </div>
+        )
     }
-    let loading = false;
 
     if(loading) {
         return (
