@@ -37,8 +37,9 @@ function SongList() {
     
     return <div>
         {/* Return each song 10 times */}
-        {Array.from({ length: 10 }, () => song).map((song, i) => (
-            <Song key={i} song={song} />
+        {/* {Array.from({ length: 10 }, () => song).map((song, i) => ( */}
+        {data.songs.map((song) => (
+            <Song key={song.id} song={song} />
         ))}
     </div>
 }
