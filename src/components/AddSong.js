@@ -1,6 +1,8 @@
 import React from 'react'
 import { TextField, InputAdornment, Button, Dialog, DialogContent, DialogTitle, DialogActions, makeStyles} from '@material-ui/core';
 import { Link, AddBoxOutlined } from '@material-ui/icons';
+import Soundcloud from 'react-player/lib/players/SoundCloud'
+import YoutubePlayer from 'react-player/lib/players/YouTube'
 
 const useStyles = makeStyles( theme => ( {
     container: {
@@ -24,9 +26,16 @@ const useStyles = makeStyles( theme => ( {
 function AddSong() {
     
     const classes = useStyles()
-
+    const[url, setUrl] = React.useState('')
     const [dialog, showDialog] = React.useState(false)
-    
+    const [playable, setPlayable] = React.useState(false)
+
+    //Check whether this song is playable or not,
+    React.useEffect( () => {
+      const isPlayable = YoutubePlayer.canPlay(url) || Soundcloud.canPlay(url)
+      setPlayable(isPlayable)
+    }, [url]) // its gonna be dependent and sync with the url
+
     function handleCloseDialog() {
         showDialog(false)
     }
@@ -73,6 +82,8 @@ function AddSong() {
                 </DialogActions>
             </Dialog>
             <TextField
+            onChange={event => setUrl(event.target.value)}
+            value={url} // making control, to be able to clear out the form easily
             className={classes.urlInput}
             placeholder="Add either Youtube 📹 or Soundcloud 🎶 Url "
             fullWidth
@@ -87,6 +98,7 @@ function AddSong() {
             }}
         />
         <Button
+        disabled={!playable}
         className={classes.addSongButton}
         onClick={ () => showDialog(true)}
         variant="contained" color="secondary"
