@@ -1,6 +1,7 @@
 import React from 'react'
-import { TextField, InputAdornment, Button, Dialog, DialogContent, DialogTitle, DialogActions, makeStyles} from '@material-ui/core';
-import { Link, AddBoxOutlined } from '@material-ui/icons';
+import { TextField, InputAdornment, Button, Dialog, DialogContent, DialogTitle, DialogActions, makeStyles} from '@material-ui/core'
+import { Link, AddBoxOutlined } from '@material-ui/icons'
+import ReactPlayer from 'react-player'
 import Soundcloud from 'react-player/lib/players/SoundCloud'
 import YoutubePlayer from 'react-player/lib/players/YouTube'
 
@@ -29,6 +30,51 @@ function AddSong() {
     const[url, setUrl] = React.useState('')
     const [dialog, showDialog] = React.useState(false)
     const [playable, setPlayable] = React.useState(false)
+    const [song, setSong] = React.useState( {
+        title: '',
+        artist: '',
+        thumbnail: '',
+        duration: 0
+    })
+
+    async function handleEditSong( {player} ) {
+        const nestedPlayer = player.player.player
+        let songDetails;
+        if(nestedPlayer.getVideoData) {
+            songDetails = getYoutubeInfo(nestedPlayer)
+        } else if (nestedPlayer.getCurrentSound) {
+          songDetails = await getSoundcloudInfo(nestedPlayer)
+        }
+        setSong( { ...songDetails, url })
+    }
+
+    function getYoutubeInfo(player) {
+        const { title, video_id, author} = player.getVideoData()
+        const duration = player.getDuration()
+        const thumbnail = `http://img.youtube.com/vi/${video_id}/0.jpg`
+        return {
+            title,
+            author,
+            video_id,
+            duration,
+            thumbnail
+        }
+    }
+
+    function getSoundcloudInfo(player) {
+        return new Promise( resolve => {
+            player.getCurrentSound( songDetails => {
+                if(songDetails) {
+                    resolve({
+                        duration: Number(songDetails.duration / 1000), // Convert into sec from ms
+                        title: songDetails.title,
+                        artist: songDetails.user.username,
+                        thumbnail: songDetails.artwork_url.replace('-large', '-t500x500')
+                    })
+                }
+            })
+        })
+    }
 
     //Check whether this song is playable or not,
     React.useEffect( () => {
@@ -40,6 +86,7 @@ function AddSong() {
         showDialog(false)
     }
 
+    const { thumbnail, artist, title } = song
     return (
         <div className={classes.container}>
             <Dialog
@@ -49,23 +96,26 @@ function AddSong() {
             >
                 <DialogTitle> Edit Song </DialogTitle>
                 <DialogContent>
-                    <img src="https://avatars0.githubusercontent.com/u/55599878?s=460&u=ed7ab421e2b7b0fdc9fd0ddeae2f73feeb72eede&v=4"
+                    <img src={thumbnail}
                     alt="Song thumbnail"
                     className={classes.thumbnail}
                     />
                     <TextField
+                    value={title}
                     margin="dense"
                     name="title"
                     label="Title"
                     fullWidth
                     />
                     <TextField
+                    value={artist}
                     margin="dense"
                     name="artist"
                     label="Artist"
                     fullWidth
                     />
                     <TextField
+                    value={thumbnail}
                     margin="dense"
                     name="thumbnail"
                     label="Thubmnail"
@@ -105,6 +155,9 @@ function AddSong() {
         endIcon={<AddBoxOutlined/>} >
             Add
         </Button>
+    {/* onReady will give us all the Songdetails when the react player is loaded
+    on the url */}
+        <ReactPlayer url={url} hidden onReady={handleEditSong} />
         </div>
     )
 }
