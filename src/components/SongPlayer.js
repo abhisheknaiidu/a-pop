@@ -39,7 +39,7 @@ function SongPlayer() {
 
     // It dispatches a new action
     function handleSongPlay() {
-        dispatch({ type: "PLAY_SONG" })
+        dispatch(state.isPlaying ? { type: 'PAUSE_SONG' } : { type: 'PLAY_SONG' })
     }
     
     return (
