@@ -79,7 +79,8 @@ const client = new ApolloClient({
 })
 
 const hasPlaylist = Boolean(localStorage.getItem('playlist'))
-
+// taken from local storage and put them in a cache, queried using a
+// local query and put in the Playlist component!
 const data = {
     playlist: hasPlaylist ? JSON.parse(localStorage.getItem('playlist')) : []
 }
