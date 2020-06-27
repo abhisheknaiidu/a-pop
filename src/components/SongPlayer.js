@@ -38,7 +38,9 @@ const useStyles = makeStyles( theme => ({
 function SongPlayer() {
     const classes = useStyles()
 
+    const reactPlayerRef = React.useRef()
     const [played, setPlayed] = React.useState(0)
+    const [seeking, setSeeking] = React.useState(false)
     const { data } = useQuery(GET_PLAYLIST_SONGS)
     const { state, dispatch } = React.useContext(SongContext)
 
@@ -46,7 +48,20 @@ function SongPlayer() {
     function handleSongPlay() {
         dispatch(state.isPlaying ? { type: 'PAUSE_SONG' } : { type: 'PLAY_SONG' })
     }
-    
+    // slider provides newValue prop
+    function handleMusicChange(event, newValue) {
+        setPlayed(newValue)
+    }
+
+    function handleSeekMouseDown() {
+        setSeeking(true)
+    }
+
+    function handleSeekMouseUp() {
+        setSeeking(false)
+        reactPlayerRef.current.seekTo(played)
+    }
+
     return (
         <>
         <Card className={classes.container} variant="outlined">
@@ -75,6 +90,9 @@ function SongPlayer() {
                 </div>
                 <Slider
                 value={played}
+                onMouseDown={handleSeekMouseDown}
+                onMouseUp = {handleSeekMouseUp}
+                onChange={handleMusicChange}
                 type="range"
                 min={0}
                 max={1}
@@ -82,8 +100,11 @@ function SongPlayer() {
                 />
             </div>
             <ReactPlayer 
+            ref={reactPlayerRef}
             onProgress={ ({ played, playedSeconds }) => {
-                setPlayed(played)
+                if(!seeking) { 
+                    setPlayed(played)
+                }
             }}
             url={state.song.url} playing={state.isPlaying} hidden />
             <CardMedia className={classes.thumbnail}
