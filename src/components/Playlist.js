@@ -39,7 +39,7 @@ function Playlist( {playlist} ) {
     return greaterThanMd && (
     <div style={{ margin: '10px 0' }}>
         <Typography color="textSecondary" variant="button">
-            PLAYLIST (playlist.length)
+            PLAYLIST ({playlist.length})
         </Typography>
         {playlist.map((song, i) => (
             <PlaylistSong key={i} song={song} />
