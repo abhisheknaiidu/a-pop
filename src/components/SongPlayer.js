@@ -5,6 +5,7 @@ import { SkipPrevious, PlayArrow, SkipNext, Pause } from '@material-ui/icons'
 import { SongContext } from '../App'
 import { useQuery } from '@apollo/react-hooks'
 import { GET_PLAYLIST_SONGS } from '../graphql/queries'
+import ReactPlayer from 'react-player'
 
 const useStyles = makeStyles( theme => ({
     container: {
@@ -78,6 +79,7 @@ function SongPlayer() {
                 step={0.01}
                 />
             </div>
+            <ReactPlayer url={state.song.url} playing={state.isPlaying} hidden />
             <CardMedia className={classes.thumbnail}
             image={ state.song.thumbnail }
             />
