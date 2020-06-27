@@ -54,7 +54,11 @@ function Playlist( {playlist} ) {
 function PlaylistSong({ song }) {
 
     const classes = useStyles()
-    const [addOrRemoveFromPlaylist] = useMutation(REMOVE_OR_ADD_FROM_PLAYLIST)
+    const [addOrRemoveFromPlaylist] = useMutation(REMOVE_OR_ADD_FROM_PLAYLIST, {
+        onCompleted: data => {
+            localStorage.setItem('playlist', JSON.stringify(data.addOrRemoveFromPlaylist)) //Stores playlist in browser's local storage!
+        }
+    })
 
     function handleRemoveOrAddFromPlaylist() {
         addOrRemoveFromPlaylist({

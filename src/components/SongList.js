@@ -72,7 +72,11 @@ function Song({ song }) {
     const [currentSongPlaying, setCurrentSongPlaying] = React.useState(false)
     const {state, dispatch} = React.useContext(SongContext)
     const classes = useStyles()
-    const [addOrRemoveFromPlaylist] = useMutation(REMOVE_OR_ADD_FROM_PLAYLIST)
+    const [addOrRemoveFromPlaylist] = useMutation(REMOVE_OR_ADD_FROM_PLAYLIST, {
+        onCompleted: data => {
+            localStorage.setItem('playlist', JSON.stringify(data.addOrRemoveFromPlaylist)) //Stores playlist in browser's local storage!
+        }
+    })
     const { thumbnail, artist, title, id} = song
 
     React.useEffect( () => {

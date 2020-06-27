@@ -78,8 +78,10 @@ const client = new ApolloClient({
     }
 })
 
+const hasPlaylist = Boolean(localStorage.getItem('playlist'))
+
 const data = {
-    playlist: []
+    playlist: hasPlaylist ? JSON.parse(localStorage.getItem('playlist')) : []
 }
 
 // the way through which we give the created client the data
