@@ -44,6 +44,7 @@ function SongPlayer() {
     const [seeking, setSeeking] = React.useState(false)
     const { data } = useQuery(GET_PLAYLIST_SONGS)
     const { state, dispatch } = React.useContext(SongContext)
+    const [postionInPlaylist, setPostionInPlaylist] = React.useState(0)
 
     // It dispatches a new action
     function handleSongPlay() {
@@ -66,6 +67,21 @@ function SongPlayer() {
     function formatDuration(seconds) {
         return new Date(seconds*1000).toISOString().substr(11,8)
     }
+
+    React.useEffect( () => {
+       const songIndex = data.playlist.findIndex(song => song.id === state.song.id)
+       setPostionInPlaylist(songIndex)
+    }, [data.playlist, state.song.id])
+
+    // logic to play for next song
+    React.useEffect( () => {
+        const nextSong = data.playlist[postionInPlaylist + 1]
+        // After finishing, played song becomes 1
+        if( played === 1 && nextSong) {
+            setPlayed(0)
+            dispatch( {type: 'SET_SONG', payload: { song: nextSong }})
+        }
+    }, [data.playlist, played, dispatch, postionInPlaylist])
 
     return (
         <>
