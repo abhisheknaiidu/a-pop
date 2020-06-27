@@ -72,7 +72,7 @@ function Song({ song }) {
     const [currentSongPlaying, setCurrentSongPlaying] = React.useState(false)
     const {state, dispatch} = React.useContext(SongContext)
     const classes = useStyles()
-    const [removeOrAddFromPlaylist] = useMutation(REMOVE_OR_ADD_FROM_PLAYLIST)
+    const [addOrRemoveFromPlaylist] = useMutation(REMOVE_OR_ADD_FROM_PLAYLIST)
     const { thumbnail, artist, title, id} = song
 
     React.useEffect( () => {
@@ -87,7 +87,7 @@ function Song({ song }) {
     }
 
     function handleRemoveOrAddFromPlaylist() {
-        removeOrAddFromPlaylist({
+        addOrRemoveFromPlaylist({
             variables: { input: { ...song, __typename: 'Song' } }
         })
     }

@@ -3,6 +3,7 @@ import ApolloClient from 'apollo-client'
 import { WebSocketLink } from 'apollo-link-ws'
 import { InMemoryCache } from 'apollo-cache-inmemory'
 import { gql } from 'apollo-boost'
+import { GET_PLAYLIST_SONGS } from './queries'
 
 // import ApolloClient from 'apollo-boost'
 
@@ -45,10 +46,36 @@ const client = new ApolloClient({
     type Mutation {
         addOrRemoveFromPlaylist(input: SongInput!): [Song]! 
     }
-    `
+    `,
     // returns array of type song
     // So we defined to apollo, what exactly our song data woulb be consists of,
     // how to query the data and how to make mutations to it
+    // Tells how our mutations and queries resolve!
+    resolvers: {
+        Mutation: {
+            // We're gonna specify how the data we got recieved on input
+            // is gonna turn into array into array of Songs!
+            addOrRemoveFromPlaylist: (_, { input }, { cache }) => {
+               const queryResult = cache.readQuery({
+                    query: GET_PLAYLIST_SONGS
+                })
+                if(queryResult) {
+                    const { playlist } = queryResult
+                    //checking where the particular song already resides in playlist or not
+                    const isInPlaylist = playlist.some( song => song.id === input.id)
+                    const newPlaylist = isInPlaylist ? playlist.filter( song => song.id !== input.id)
+                    : [ ...playlist, input] // Add input in the very end!
+                    // add it in the end of the queue
+                    cache.writeQuery({
+                        query: GET_PLAYLIST_SONGS,
+                        data: { playlist: newPlaylist }
+                    })
+                    return newPlaylist
+                }
+                return []
+            }
+        }
+    }
 })
 
 const data = {
