@@ -25,8 +25,9 @@ const useStyles = makeStyles({
     },
 })
  
-function Playlist() {
+function Playlist( {playlist} ) {
 
+    console.log( {playlist} )
     const greaterThanMd = useMediaQuery( theme => theme.breakpoints.up('md'))
 
     const song = {

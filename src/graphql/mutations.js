@@ -8,3 +8,8 @@ mutation addSong($title: String!, $artist: String!, $thumbnail: String!, $durati
   }
 `
 
+export const REMOVE_OR_ADD_FROM_PLAYLIST = gql `
+mutation addOrRemoveFromPlaylist($input: SongInput!) {
+  addOrRemoveFromPlaylist(input: $input) @client
+}
+`

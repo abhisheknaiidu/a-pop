@@ -1,9 +1,10 @@
 import React from 'react'
 import { Card, CircularProgress, CardMedia, CardContent, Typography, CardActions, IconButton, makeStyles} from '@material-ui/core';
 import { PlayArrow, Save, Pause } from '@material-ui/icons';
-import { useSubscription } from '@apollo/react-hooks';
+import { useSubscription, useMutation } from '@apollo/react-hooks';
 import { GET_SONGS } from '../graphql/subscriptions';
 import { SongContext } from '../App';
+import { REMOVE_OR_ADD_FROM_PLAYLIST } from '../graphql/mutations';
 
 function SongList() {
 
@@ -71,6 +72,7 @@ function Song({ song }) {
     const [currentSongPlaying, setCurrentSongPlaying] = React.useState(false)
     const {state, dispatch} = React.useContext(SongContext)
     const classes = useStyles()
+    const [removeOrAddFromPlaylist] = useMutation(REMOVE_OR_ADD_FROM_PLAYLIST)
     const { thumbnail, artist, title, id} = song
 
     React.useEffect( () => {
@@ -82,6 +84,12 @@ function Song({ song }) {
     function handleSongPlay() {
         dispatch( { type: 'SET_SONG', payload: { song } })
         dispatch(state.isPlaying ? { type: 'PAUSE_SONG' } : { type: 'PLAY_SONG' })
+    }
+
+    function handleRemoveOrAddFromPlaylist() {
+        removeOrAddFromPlaylist({
+            variables: { input: { ...song, __typename: 'Song' } }
+        })
     }
 
     return (
@@ -104,7 +112,7 @@ function Song({ song }) {
                             so we can check for that using useEffects */}
                            { currentSongPlaying ? <Pause/> : <PlayArrow/>}
                         </IconButton>
-                        <IconButton size="small" color="primary">
+                        <IconButton onClick={handleRemoveOrAddFromPlaylist} size="small" color="primary">
                             <Save/>
                         </IconButton>
                     </CardActions>

@@ -3,6 +3,8 @@ import Playlist from './Playlist'
 import { Card, CardContent, Typography, IconButton, Slider, CardMedia, makeStyles } from '@material-ui/core'
 import { SkipPrevious, PlayArrow, SkipNext, Pause } from '@material-ui/icons'
 import { SongContext } from '../App'
+import { useQuery } from '@apollo/react-hooks'
+import { GET_PLAYLIST_SONGS } from '../graphql/queries'
 
 const useStyles = makeStyles( theme => ({
     container: {
@@ -35,6 +37,7 @@ const useStyles = makeStyles( theme => ({
 function SongPlayer() {
     const classes = useStyles()
 
+    const { data } = useQuery(GET_PLAYLIST_SONGS)
     const { state, dispatch } = React.useContext(SongContext)
 
     // It dispatches a new action
@@ -79,7 +82,7 @@ function SongPlayer() {
             image={ state.song.thumbnail }
             />
         </Card>
-        <Playlist />
+        <Playlist playlist={data.playlist}/>
         </>
     )
 }
