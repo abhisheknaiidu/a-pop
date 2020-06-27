@@ -26,3 +26,8 @@ function songReducer(state, action) {
 }
 
 export default songReducer
+
+//  One drawback of using reducers and something like redux, and reducers
+// which also relies on reducers, these are pure functions,
+// we can't even interact with the outside world with them,
+// So we will be using apollo tools for this, like typeDefs

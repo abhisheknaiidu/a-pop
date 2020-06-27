@@ -13,7 +13,12 @@ const client = new ApolloClient({
             reconnect: true
         }
     }),
-    cache: new InMemoryCache()
+    cache: new InMemoryCache(),
+    // This has been done by hasura previously, creating these typeDefs for us 
+    // , creating these shema's for us  but now we need to tell apollo
+    // what we quering for, the data itself or any mutations
+    typeDefs: gql`
+    `
 })
 
 // const client = new ApolloClient( {
