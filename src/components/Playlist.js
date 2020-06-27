@@ -1,6 +1,9 @@
 import React from 'react'
 import { Typography, Avatar, IconButton, makeStyles, useMediaQuery } from '@material-ui/core'
 import { Delete } from '@material-ui/icons'
+import { REMOVE_OR_ADD_FROM_PLAYLIST } from '../graphql/mutations';
+import { useMutation } from '@apollo/react-hooks';
+
 
 const useStyles = makeStyles({
     container: {
@@ -51,6 +54,13 @@ function Playlist( {playlist} ) {
 function PlaylistSong({ song }) {
 
     const classes = useStyles()
+    const [addOrRemoveFromPlaylist] = useMutation(REMOVE_OR_ADD_FROM_PLAYLIST)
+
+    function handleRemoveOrAddFromPlaylist() {
+        addOrRemoveFromPlaylist({
+            variables: { input: { ...song, __typename: 'Song' } }
+        })
+    }
 
     const { artist, thumbnail, title} = song
     return (
@@ -64,7 +74,7 @@ function PlaylistSong({ song }) {
                 {artist}
             </Typography>
             </div>
-            <IconButton>
+            <IconButton onClick={handleRemoveOrAddFromPlaylist}>
                 <Delete color="warning"/>
             </IconButton>
         </div>
