@@ -68,6 +68,20 @@ function SongPlayer() {
         return new Date(seconds*1000).toISOString().substr(11,8)
     }
 
+    function handlePlayPrevSong() {
+        const prevSong = data.playlist[postionInPlaylist - 1]
+        if(prevSong) {
+            dispatch( {type: 'SET_SONG', payload: { song: prevSong }})
+        }
+    }
+
+    function handlePlayNextSong() {
+        const nextSong = data.playlist[postionInPlaylist + 1]
+        if(nextSong) {
+            dispatch( {type: 'SET_SONG', payload: { song: nextSong }})
+        }
+    }
+
     React.useEffect( () => {
        const songIndex = data.playlist.findIndex(song => song.id === state.song.id)
        setPostionInPlaylist(songIndex)
@@ -77,7 +91,7 @@ function SongPlayer() {
     React.useEffect( () => {
         const nextSong = data.playlist[postionInPlaylist + 1]
         // After finishing, played song becomes 1
-        if( played === 1 && nextSong) {
+        if( played >= 0.99 && nextSong) {
             setPlayed(0)
             dispatch( {type: 'SET_SONG', payload: { song: nextSong }})
         }
@@ -96,13 +110,13 @@ function SongPlayer() {
                     </Typography>
                 </CardContent>
             <div className={classes.controls}>
-                <IconButton>
+                <IconButton onClick={handlePlayPrevSong}>
                     <SkipPrevious/>
                 </IconButton>
                 <IconButton onClick={handleSongPlay}>
                     { state.isPlaying ? <Pause className={classes.playIcon}/> : <PlayArrow className={classes.playIcon}/>}
                 </IconButton>
-                <IconButton>
+                <IconButton onClick={handlePlayNextSong}>
                     <SkipNext/>
                 </IconButton>
                 <Typography variant="subtitle1" component="p" color="textSecondary">
