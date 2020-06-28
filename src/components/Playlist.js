@@ -79,7 +79,7 @@ function PlaylistSong({ song }) {
             </Typography>
             </div>
             <IconButton onClick={handleRemoveOrAddFromPlaylist}>
-                <Delete color="warning"/>
+                <Delete color='warning'/>
             </IconButton>
         </div>
     )

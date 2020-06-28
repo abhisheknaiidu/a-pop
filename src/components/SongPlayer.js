@@ -107,7 +107,7 @@ function SongPlayer() {
                         { state.song.title }
                     </Typography>
                     <Typography variant="subtitle1" component="p" color="textSecondary">
-                        { state.song.title }
+                        { state.song.artist }
                     </Typography>
                 </CardContent>
             <div className={classes.controls}>

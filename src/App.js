@@ -8,9 +8,9 @@ import songReducer from './reducer'
 
 export const SongContext = React.createContext({
   song: {
-    id: "cf9423d1-3461-47c5-83d0-d233e49f8c08",
-    title: 'SickFlip & Ritviz - Roshni feat. Seedhe Maut',
-    artist: 'asd',
+    id: "0f1f3cb3-f0f1-44b1-9ea5-2bf419d08dce",
+    title: 'Roshni 🏮',
+    artist: 'SickFlip & Ritviz',
     thumbnail: 'http://img.youtube.com/vi/cAQVYXwiWi0/0.jpg',
     url: 'https://www.youtube.com/watch?v=cAQVYXwiWi0',
     duration: 187
