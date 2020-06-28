@@ -7,6 +7,7 @@ import { useQuery } from '@apollo/react-hooks'
 import { GET_PLAYLIST_SONGS } from '../graphql/queries'
 import ReactPlayer from 'react-player'
 
+
 const useStyles = makeStyles( theme => ({
     container: {
         display: 'flex',
@@ -124,6 +125,7 @@ function SongPlayer() {
                 </Typography>
                 </div>
                 <Slider
+                defaultValue={40}
                 value={played}
                 onMouseDown={handleSeekMouseDown}
                 onMouseUp = {handleSeekMouseUp}

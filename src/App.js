@@ -6,7 +6,6 @@ import SongPlayer from './components/SongPlayer';
 import { Grid, useMediaQuery } from '@material-ui/core';
 import songReducer from './reducer'
 
-
 export const SongContext = React.createContext({
   song: {
     id: "cf9423d1-3461-47c5-83d0-d233e49f8c08",
