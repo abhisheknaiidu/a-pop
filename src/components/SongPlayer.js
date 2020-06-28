@@ -127,6 +127,8 @@ function SongPlayer() {
                 <Slider
                 defaultValue={40}
                 value={played}
+                onPointerUp={handleSeekMouseUp}
+                onPointerDown={handleSeekMouseDown}
                 onMouseDown={handleSeekMouseDown}
                 onMouseUp = {handleSeekMouseUp}
                 onChange={handleMusicChange}
