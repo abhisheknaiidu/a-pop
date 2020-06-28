@@ -1,5 +1,5 @@
 [![time tracker](https://wakatime.com/badge/github/abhisheknaiidu/Zepta.svg)](https://wakatime.com/badge/github/abhisheknaiidu/Zepta)
-
+[![contributions welcome](https://img.shields.io/badge/contributions-welcome-brightgreen.svg?style=flat)](https://github.com/dwyl/esta/issues)
 [A-POP](https://a-pop.vercel.app/), is a HD Music Stream Application 🎧 built in order to provide high sound clarity to 
 respective Youtube or SoundCloud Songs, and that too without ads and video streaming! Just Music and Chill 😉
 It's actually a hack for students, to listen to songs and bgm's from Youtube without even buffering data for video streams.
