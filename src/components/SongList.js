@@ -1,10 +1,11 @@
 import React from 'react'
 import { Card, CircularProgress, CardMedia, CardContent, Typography, CardActions, IconButton, makeStyles} from '@material-ui/core';
-import { PlayArrow, Save, Pause } from '@material-ui/icons';
+import { PlayArrow, Pause } from '@material-ui/icons';
 import { useSubscription, useMutation } from '@apollo/react-hooks';
 import { GET_SONGS } from '../graphql/subscriptions';
 import { SongContext } from '../App';
 import { REMOVE_OR_ADD_FROM_PLAYLIST } from '../graphql/mutations';
+import PlaylistAddOutlinedIcon from '@material-ui/icons/PlaylistAddOutlined';
 
 function SongList() {
 
@@ -117,7 +118,7 @@ function Song({ song }) {
                            { currentSongPlaying ? <Pause/> : <PlayArrow/>}
                         </IconButton>
                         <IconButton onClick={handleRemoveOrAddFromPlaylist} size="small" color="primary">
-                            <Save/>
+                            <PlaylistAddOutlinedIcon/>
                         </IconButton>
                     </CardActions>
                 </div>
