@@ -123,7 +123,7 @@ async function handleAddSong() {
     function handleInputError(field) {
         // return only if there is a error
         // return error && error.graphQLErrors[0].extensions.path.includes(field)
-         return error?.graphQLErrors[0]?.extensions?.path?.includes(field)
+        return error?.graphQLErrors[0]?.extensions?.path.includes(field)
     }
 
     //Check whether this song is playable or not,

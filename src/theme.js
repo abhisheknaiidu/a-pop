@@ -11,6 +11,11 @@ const theme = createMuiTheme({
             main: deepPurple[500],
         },
     },
+    typography: {
+        // Use the system font.
+        fontSize: 12,
+        fontFamily: 'Balsamiq Sans'
+      },
     overrides:{
         MuiSlider: {
           thumb:{
