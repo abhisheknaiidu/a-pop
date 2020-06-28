@@ -1,5 +1,5 @@
 import React from 'react';
-import { AppBar, Toolbar, Typography, makeStyles } from '@material-ui/core';
+import { AppBar, Toolbar, Typography, makeStyles, Switch } from '@material-ui/core';
 import { HeadsetTwoTone } from '@material-ui/icons';
 // Got access to theme as well
 const useStyles = makeStyles(theme => ({
@@ -19,10 +19,10 @@ function Header() {
                 <Typography className={classes.heading} variant="h6" component="h1">
                     Zepta Music Sharing
                 </Typography>
+                <Switch checked='false' color="primary"/>
             </Toolbar>
         </AppBar>
     );
 }
 
 export default Header;
- 
