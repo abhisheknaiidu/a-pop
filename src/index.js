@@ -5,6 +5,8 @@ import { MuiThemeProvider, CssBaseline } from '@material-ui/core'
 import theme from './theme'
 import { ApolloProvider } from '@apollo/react-hooks'
 import client from './graphql/client';
+import * as serviceWorker from './serviceWorker';
+
 
 ReactDOM.render(
     <ApolloProvider client={client}>
@@ -15,4 +17,6 @@ ReactDOM.render(
     </ApolloProvider>,
  document.getElementById('root')
 );
+
+serviceWorker.register();
 
