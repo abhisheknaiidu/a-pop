@@ -1,7 +1,7 @@
 import React from 'react'
 import Playlist from './Playlist'
 import { Card, CardContent, Typography, IconButton, Slider, CardMedia, makeStyles } from '@material-ui/core'
-import { SkipPrevious, PlayArrow, SkipNext, Pause } from '@material-ui/icons'
+import { SkipPrevious, PlayArrow, SkipNext, Pause, RepeatOne, Repeat } from '@material-ui/icons'
 import { SongContext } from '../App'
 import { useQuery } from '@apollo/react-hooks'
 import { GET_PLAYLIST_SONGS } from '../graphql/queries'
@@ -83,6 +83,10 @@ function SongPlayer() {
         }
     }
 
+    function handleRepeatOn() {
+        dispatch(state.isRepeating ? { type: 'REPEAT_OFF' } : { type: 'REPEAT_ON' })
+    }
+
     React.useEffect( () => {
        const songIndex = data.playlist.findIndex(song => song.id === state.song.id)
        setPostionInPlaylist(songIndex)
@@ -91,12 +95,18 @@ function SongPlayer() {
     // logic to play for next song
     React.useEffect( () => {
         const nextSong = data.playlist[postionInPlaylist + 1]
+    
         // After finishing, played song becomes 1
+        // If repeat is ON, then just seek to 0.
+        if( played >= 0.99 && state.isRepeating ) {
+            setPlayed(0)
+            reactPlayerRef.current.seekTo(played)
+        }
         if( played >= 0.99 && nextSong) {
             setPlayed(0)
             dispatch( {type: 'SET_SONG', payload: { song: nextSong }})
         }
-    }, [data.playlist, played, dispatch, postionInPlaylist])
+    }, [state, data.playlist, played, dispatch, postionInPlaylist])
 
     return (
         <>
@@ -119,6 +129,9 @@ function SongPlayer() {
                 </IconButton>
                 <IconButton onClick={handlePlayNextSong}>
                     <SkipNext/>
+                </IconButton>
+                <IconButton onClick={handleRepeatOn}>
+                    { state.isRepeating ? <RepeatOne /> : <Repeat />}
                 </IconButton>
                 <Typography variant="subtitle1" component="p" color="textSecondary">
                         {formatDuration(playedSeconds)}

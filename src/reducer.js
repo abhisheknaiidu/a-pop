@@ -20,6 +20,18 @@ function songReducer(state, action) {
                 isPlaying: true
            }
         }
+        case "REPEAT_ON": {
+            return {
+                ...state, 
+                isRepeating: true
+            }
+        }
+        case "REPEAT_OFF": {
+            return {
+                ...state, 
+                isRepeating: false
+            }
+        }
         default:
             return state;
     }
