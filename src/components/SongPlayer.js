@@ -112,7 +112,7 @@ function SongPlayer() {
         //         dispatch( {type: 'SET_SONG', payload: { song: firstSong }})
         //     }
         // }
-        
+
         /* SINGLE SONG REPEAT */
         if(played >= 0.999) {
             if(state.isRepeating) {
@@ -149,7 +149,7 @@ function SongPlayer() {
                     <SkipNext/>
                 </IconButton>
                 <IconButton onClick={handleRepeatOn}>
-                    { state.isRepeating ? <RepeatOne /> : <Repeat />}
+                    { state.isRepeating ? <RepeatOne style={{ color: "green" }} /> : <Repeat />}
                 </IconButton>
                 <Typography variant="subtitle1" component="p" color="textSecondary">
                         {formatDuration(playedSeconds)}
