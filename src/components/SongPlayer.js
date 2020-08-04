@@ -95,16 +95,34 @@ function SongPlayer() {
     // logic to play for next song
     React.useEffect( () => {
         const nextSong = data.playlist[postionInPlaylist + 1]
-    
+
         // After finishing, played song becomes 1
-        // If repeat is ON, then just seek to 0.
-        if( played >= 0.99 && state.isRepeating ) {
-            setPlayed(0)
-            reactPlayerRef.current.seekTo(played)
-        }
-        if( played >= 0.99 && nextSong) {
-            setPlayed(0)
-            dispatch( {type: 'SET_SONG', payload: { song: nextSong }})
+
+        /* WHOLE PLAYLIST REPEAT */
+        // if( played >= 0.99 && nextSong) {
+        //     setPlayed(0)
+        //     dispatch( {type: 'SET_SONG', payload: { song: nextSong }})
+        // }
+        // else if( played >= 0.99 && state.isRepeating ) {
+        //     setPlayed(0)
+        //     if(!firstSong) {
+        //         reactPlayerRef.current.seekTo(played);
+        //     }
+        //     else {
+        //         dispatch( {type: 'SET_SONG', payload: { song: firstSong }})
+        //     }
+        // }
+        
+        /* SINGLE SONG REPEAT */
+        if(played >= 0.999) {
+            if(state.isRepeating) {
+                setPlayed(0)
+                reactPlayerRef.current.seekTo(played)
+            }
+            else if(!state.isRepeating && nextSong) {
+                setPlayed(0)
+                dispatch( {type: 'SET_SONG', payload: { song: nextSong }})
+            }
         }
     }, [state, data.playlist, played, dispatch, postionInPlaylist])
 
