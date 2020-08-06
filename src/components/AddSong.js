@@ -4,8 +4,10 @@ import { Link, AddBoxOutlined } from '@material-ui/icons'
 import ReactPlayer from 'react-player'
 import Soundcloud from 'react-player/lib/players/SoundCloud'
 import YoutubePlayer from 'react-player/lib/players/YouTube'
-import { useMutation } from '@apollo/react-hooks'
+import { useMutation,useSubscription } from '@apollo/react-hooks'
 import { ADD_SONG } from '../graphql/mutations'
+import { GET_SONGS } from '../graphql/subscriptions';
+import swal from 'sweetalert';
 
 const useStyles = makeStyles( theme => ( {
     container: {
@@ -34,6 +36,7 @@ function AddSong() {
     const[url, setUrl] = React.useState('')
     const [dialog, showDialog] = React.useState(false)
     const [playable, setPlayable] = React.useState(false)
+    const { data } = useSubscription(GET_SONGS)
     const [song, setSong] = React.useState( {
         title: '',
         artist: '',
@@ -97,7 +100,6 @@ async function handleAddSong() {
 
         try {
             const { url, thumbnail, duration, title, artist } = song
-
             await addSong({
                  variables: {
                      url: url.length > 0 ? url : null,
@@ -134,6 +136,16 @@ async function handleAddSong() {
 
     function handleCloseDialog() {
         showDialog(false)
+    }
+
+    function handleShowDialogBox(){
+        let flag=0
+        data.songs.forEach(element => {
+            if(element.url===url){
+            flag=1
+            }
+        });
+        flag===1?swal("Oops" ,  "Song is already present in list!!" ,  "error"):showDialog(true)
     }
 
     const { thumbnail, artist, title } = song
@@ -213,7 +225,7 @@ async function handleAddSong() {
         <Button
         disabled={!playable}
         className={classes.addSongButton}
-        onClick={ () => showDialog(true)}
+        onClick={handleShowDialogBox}
         variant="contained" color="secondary"
         endIcon={<AddBoxOutlined/>} >
             Add
@@ -226,4 +238,3 @@ async function handleAddSong() {
 }
 
 export default AddSong;
- 
