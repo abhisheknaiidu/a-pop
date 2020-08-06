@@ -97,22 +97,7 @@ function SongPlayer() {
         const nextSong = data.playlist[postionInPlaylist + 1]
 
         // After finishing, played song becomes 1
-
-        /* WHOLE PLAYLIST REPEAT */
-        // if( played >= 0.99 && nextSong) {
-        //     setPlayed(0)
-        //     dispatch( {type: 'SET_SONG', payload: { song: nextSong }})
-        // }
-        // else if( played >= 0.99 && state.isRepeating ) {
-        //     setPlayed(0)
-        //     if(!firstSong) {
-        //         reactPlayerRef.current.seekTo(played);
-        //     }
-        //     else {
-        //         dispatch( {type: 'SET_SONG', payload: { song: firstSong }})
-        //     }
-        // }
-
+        
         /* SINGLE SONG REPEAT */
         if(played >= 0.999) {
             if(state.isRepeating) {
