@@ -145,7 +145,7 @@ async function handleAddSong() {
             flag=1
             }
         });
-        flag===1?swal('Song already present in list!!'):showDialog(true)
+        flag===1?swal("Oops" ,  "Song is already present in list!!" ,  "error"):showDialog(true)
     }
 
     const { thumbnail, artist, title } = song
