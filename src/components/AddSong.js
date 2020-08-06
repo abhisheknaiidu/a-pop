@@ -99,12 +99,6 @@ async function handleAddSong() {
 
         try {
             const { url, thumbnail, duration, title, artist } = song
-            data.songs.forEach(element => {
-                if(element.url===url){
-                alert('Song already present in list')
-                throw new Error('Duplicate entry')
-                }
-            });
             await addSong({
                  variables: {
                      url: url.length > 0 ? url : null,
@@ -141,6 +135,17 @@ async function handleAddSong() {
 
     function handleCloseDialog() {
         showDialog(false)
+    }
+
+    function handleShowDialogBox(){
+        var flag=0
+        data.songs.forEach(element => {
+            if(element.url===url){
+            flag=1
+            }
+        });
+        console.log(flag)
+        flag===1?alert('Song already present in list'):showDialog(true)
     }
 
     const { thumbnail, artist, title } = song
@@ -220,7 +225,7 @@ async function handleAddSong() {
         <Button
         disabled={!playable}
         className={classes.addSongButton}
-        onClick={ () => showDialog(true)}
+        onClick={handleShowDialogBox}
         variant="contained" color="secondary"
         endIcon={<AddBoxOutlined/>} >
             Add
