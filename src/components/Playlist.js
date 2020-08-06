@@ -1,15 +1,16 @@
 import React from 'react'
 import { Typography, Avatar, IconButton, makeStyles, useMediaQuery } from '@material-ui/core'
-import { Delete } from '@material-ui/icons'
-import { REMOVE_OR_ADD_FROM_PLAYLIST } from '../graphql/mutations';
-import { useMutation } from '@apollo/react-hooks';
+import { Delete, PlayArrow, Pause } from '@material-ui/icons'
+import { SongContext } from '../App';
+import { REMOVE_OR_ADD_FROM_PLAYLIST } from '../graphql/mutations'
+import { useMutation } from '@apollo/react-hooks'
 
 
 const useStyles = makeStyles({
     container: {
         display: 'grid',
         gridAutoFlow: 'column',
-        gridTemplateColumns: '50px auto 50px',
+        gridTemplateColumns: '50px auto 50px 50px',
         gridGap: 12,
         alignItems: 'center',
         marginTop: 10
@@ -53,12 +54,26 @@ function Playlist( {playlist} ) {
 
 function PlaylistSong({ song }) {
 
+    const [currentSongPlaying, setCurrentSongPlaying] = React.useState(false)
+    const {state, dispatch} = React.useContext(SongContext)
+
     const classes = useStyles()
     const [addOrRemoveFromPlaylist] = useMutation(REMOVE_OR_ADD_FROM_PLAYLIST, {
         onCompleted: data => {
             localStorage.setItem('playlist', JSON.stringify(data.addOrRemoveFromPlaylist)) //Stores playlist in browser's local storage!
         }
     })
+    const { thumbnail, artist, title, id} = song
+    React.useEffect( () => {
+        const isSongPlaying = state.isPlaying && id === state.song.id
+        setCurrentSongPlaying(isSongPlaying)
+        //Our dependency array
+    }, [id, state.song.id, state.isPlaying]) // we have to identify given song by ID
+
+    function handleSongPlay() {
+        dispatch( { type: 'SET_SONG', payload: { song } })
+        dispatch(state.isPlaying ? { type: 'PAUSE_SONG' } : { type: 'PLAY_SONG' })
+    }
 
     function handleRemoveOrAddFromPlaylist() {
         addOrRemoveFromPlaylist({
@@ -66,7 +81,6 @@ function PlaylistSong({ song }) {
         })
     }
 
-    const { artist, thumbnail, title} = song
     return (
         <div className={classes.container}>
             <Avatar className={classes.avator} src={thumbnail} alt="Song Thumbnail" />
@@ -78,6 +92,9 @@ function PlaylistSong({ song }) {
                 {artist}
             </Typography>
             </div>
+            <IconButton onClick={handleSongPlay} color="primary">
+                { currentSongPlaying ? <Pause/> : <PlayArrow/>} 
+            </IconButton>
             <IconButton onClick={handleRemoveOrAddFromPlaylist}>
                 <Delete color='warning'/>
             </IconButton>
