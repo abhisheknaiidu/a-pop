@@ -7,6 +7,7 @@ import YoutubePlayer from 'react-player/lib/players/YouTube'
 import { useMutation,useSubscription } from '@apollo/react-hooks'
 import { ADD_SONG } from '../graphql/mutations'
 import { GET_SONGS } from '../graphql/subscriptions';
+import swal from 'sweetalert';
 
 const useStyles = makeStyles( theme => ( {
     container: {
@@ -138,14 +139,13 @@ async function handleAddSong() {
     }
 
     function handleShowDialogBox(){
-        var flag=0
+        let flag=0
         data.songs.forEach(element => {
             if(element.url===url){
             flag=1
             }
         });
-        console.log(flag)
-        flag===1?alert('Song already present in list'):showDialog(true)
+        flag===1?swal('Song already present in list!!'):showDialog(true)
     }
 
     const { thumbnail, artist, title } = song
@@ -238,4 +238,3 @@ async function handleAddSong() {
 }
 
 export default AddSong;
- 
