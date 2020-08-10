@@ -12,12 +12,6 @@ const useStyles = makeStyles( theme => ( {
     },
     textInput: {
         margin: theme.spacing(1)
-    },
-    dialog: {
-        textAlign: 'center',
-    },
-    thumbnail: {
-        width: '90%'
     }
 }))
 
@@ -29,6 +23,7 @@ const useStyles = makeStyles( theme => ( {
 function SearchBar() {
     const classes = useStyles()
     const { data } = useSubscription(GET_SONGS)
+    //console.log(data)
     const [searchTerm, setSearchTerm] = React.useState('')
 
     function handleEditSearchTerm(sch) {
