@@ -22,7 +22,8 @@ const useStyles = makeStyles( theme => ({
         flex: '1 0 auto'
     },
     thumbnail: {
-        width: 150
+        width: 360,
+        height: 180
     },
     controls: {
         display: 'flex',
