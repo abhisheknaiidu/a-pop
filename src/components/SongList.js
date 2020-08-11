@@ -29,8 +29,8 @@ const useStyles = makeStyles( theme => ( {
     },
     thumbnail: {
         objectFit: 'cover',
-        width: 140,
-        height: 140
+        width: 160,
+        height: 90
     }
 }))
 
