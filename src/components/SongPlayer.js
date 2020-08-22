@@ -111,6 +111,19 @@ function SongPlayer() {
         }
     }, [state, data.playlist, played, dispatch, postionInPlaylist])
 
+    React.useEffect(() => {
+        /* Only target desktop device */
+        if (window.screen.width >= 1280) {
+            window.onkeydown = function (e) {
+                /* Only target spacebar click on "body" to not interfer with "input", "button", (...) elements */
+                if (e.target === document.body && (e.keyCode || e.wich) === 32) {
+                    e.preventDefault()
+                    dispatch(state.isPlaying ? { type: 'PAUSE_SONG' } : { type: 'PLAY_SONG' })
+                }
+            }
+        }
+    }, [state.isPlaying])
+
     return (
         <>
         <Card className={classes.container} variant="outlined">
