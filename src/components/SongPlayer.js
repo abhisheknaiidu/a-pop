@@ -118,7 +118,7 @@ function SongPlayer() {
                 /* Only target spacebar click on "body" to not interfer with "input", "button", (...) elements */
                 if (e.target === document.body && (e.keyCode || e.wich) === 32) {
                     e.preventDefault()
-                    dispatch(state.isPlaying ? { type: 'PAUSE_SONG' } : { type: 'PLAY_SONG' })
+                    handleSongPlay()
                 }
             }
         }
