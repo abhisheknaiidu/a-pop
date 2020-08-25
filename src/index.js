@@ -1,22 +1,20 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import App from './App';
-import { MuiThemeProvider, CssBaseline } from '@material-ui/core'
-import theme from './theme'
-import { ApolloProvider } from '@apollo/react-hooks'
-import client from './graphql/client';
-import * as serviceWorker from './serviceWorker';
-
+import React from "react";
+import ReactDOM from "react-dom";
+import App from "./App";
+import { MuiThemeProvider, CssBaseline } from "@material-ui/core";
+import theme from "./theme";
+import { ApolloProvider } from "@apollo/react-hooks";
+import client from "./graphql/client";
+import * as serviceWorker from "./serviceWorker";
 
 ReactDOM.render(
-    <ApolloProvider client={client}>
+  <ApolloProvider client={client}>
     <MuiThemeProvider theme={theme}>
-        <CssBaseline />
-        <App />
+      <CssBaseline />
+      <App />
     </MuiThemeProvider>
-    </ApolloProvider>,
- document.getElementById('root')
+  </ApolloProvider>,
+  document.getElementById("root")
 );
 
 serviceWorker.register();
-
