@@ -17,7 +17,7 @@ import { GET_SONGS } from "../graphql/subscriptions";
 import { SongContext } from "../App";
 import { REMOVE_OR_ADD_FROM_PLAYLIST } from "../graphql/mutations";
 import PlaylistAddOutlinedIcon from "@material-ui/icons/PlaylistAddOutlined";
-import PlaylistAddCheckIcon from '@material-ui/icons/PlaylistAddCheck';
+import PlaylistAddCheckIcon from "@material-ui/icons/PlaylistAddCheck";
 
 const useStyles = makeStyles((theme) => ({
   containerSearch: {
@@ -178,7 +178,11 @@ function Song({ song }) {
               size="small"
               color="primary"
             >
-              {inPlaylist ? <PlaylistAddCheckIcon/> : <PlaylistAddOutlinedIcon />}
+              {inPlaylist ? (
+                <PlaylistAddCheckIcon />
+              ) : (
+                <PlaylistAddOutlinedIcon />
+              )}
             </IconButton>
           </CardActions>
         </div>
