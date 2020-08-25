@@ -17,6 +17,7 @@ import { GET_SONGS } from "../graphql/subscriptions";
 import { SongContext } from "../App";
 import { REMOVE_OR_ADD_FROM_PLAYLIST } from "../graphql/mutations";
 import PlaylistAddOutlinedIcon from "@material-ui/icons/PlaylistAddOutlined";
+import PlaylistAddCheckIcon from '@material-ui/icons/PlaylistAddCheck';
 
 const useStyles = makeStyles((theme) => ({
   containerSearch: {
@@ -121,6 +122,7 @@ function SongList() {
 
 function Song({ song }) {
   const [currentSongPlaying, setCurrentSongPlaying] = React.useState(false);
+  const [inPlaylist, setInPlaylist] = React.useState(false);
   const { state, dispatch } = React.useContext(SongContext);
   const classes = useStyles();
   const [addOrRemoveFromPlaylist] = useMutation(REMOVE_OR_ADD_FROM_PLAYLIST, {
@@ -148,6 +150,7 @@ function Song({ song }) {
     addOrRemoveFromPlaylist({
       variables: { input: { ...song, __typename: "Song" } },
     });
+    setInPlaylist(!inPlaylist);
   }
 
   return (
@@ -175,7 +178,7 @@ function Song({ song }) {
               size="small"
               color="primary"
             >
-              <PlaylistAddOutlinedIcon />
+              {inPlaylist ? <PlaylistAddCheckIcon/> : <PlaylistAddOutlinedIcon />}
             </IconButton>
           </CardActions>
         </div>
