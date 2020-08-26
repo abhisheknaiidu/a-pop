@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 //import { useScrollPosition } from '@n8tb1t/use-scroll-position';
 import {
   Typography,
@@ -6,7 +6,7 @@ import {
   IconButton,
   makeStyles,
   useMediaQuery,
-  Card
+  Card,
 } from "@material-ui/core";
 import { Delete, PlayArrow, Pause } from "@material-ui/icons";
 import { SongContext } from "../App";
@@ -46,7 +46,7 @@ function Playlist({ playlist }) {
   //     thumbnail: 'https://avatars0.githubusercontent.com/u/55599878?s=460&u=ed7ab421e2b7b0fdc9fd0ddeae2f73feeb72eede&v=4'
   // }
 
-  if(greaterThanMd) {
+  if (greaterThanMd) {
     return (
       <div style={{ margin: "10px 0" }}>
         <Typography color="textSecondary" variant="button">
@@ -57,17 +57,16 @@ function Playlist({ playlist }) {
         ))}
       </div>
     );
-  }
-  else {
+  } else {
     return (
       <div style={{ margin: "10px 0" }}>
         <Typography color="textSecondary" variant="button">
           PLAYLIST ({playlist.length})
         </Typography>
         <Card>
-        {playlist.map((song, i) => (
-          <PlaylistSong key={i} song={song} />
-        ))}
+          {playlist.map((song, i) => (
+            <PlaylistSong key={i} song={song} />
+          ))}
         </Card>
       </div>
     );

@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { useScrollPosition } from '@n8tb1t/use-scroll-position';
+import React, { useState } from "react";
+import { useScrollPosition } from "@n8tb1t/use-scroll-position";
 import Playlist from "./Playlist";
 import {
   Card,
@@ -9,7 +9,7 @@ import {
   Slider,
   CardMedia,
   makeStyles,
-  useMediaQuery
+  useMediaQuery,
 } from "@material-ui/core";
 import {
   SkipPrevious,
@@ -63,22 +63,24 @@ function SongPlayer() {
   const { state, dispatch } = React.useContext(SongContext);
   const [postionInPlaylist, setPostionInPlaylist] = React.useState(0);
   const greaterThanMd = useMediaQuery((theme) => theme.breakpoints.up("md"));
-  const [playlistStyle, setPlaylistStyle] = useState({display:'none'})
-  
-  useScrollPosition(({ prevPos, currPos })=> {
-      const isVisible = currPos.y > prevPos.y
+  const [playlistStyle, setPlaylistStyle] = useState({ display: "none" });
+
+  useScrollPosition(
+    ({ prevPos, currPos }) => {
+      const isVisible = currPos.y > prevPos.y;
       //console.log(currPos, prevPos)
-  
+
       const shouldBeStyle = {
-        display: isVisible ? 'block' : 'none',
-      }
-  
-      if (JSON.stringify(shouldBeStyle) === JSON.stringify(playlistStyle)) return
-  
-      setPlaylistStyle(shouldBeStyle)
+        display: isVisible ? "block" : "none",
+      };
+
+      if (JSON.stringify(shouldBeStyle) === JSON.stringify(playlistStyle))
+        return;
+
+      setPlaylistStyle(shouldBeStyle);
     },
     [playlistStyle]
-  )
+  );
 
   // It dispatches a new action
   function handleSongPlay() {
@@ -225,12 +227,13 @@ function SongPlayer() {
         />
         <CardMedia className={classes.thumbnail} image={state.song.thumbnail} />
       </Card>
-      { greaterThanMd ?
-      <Playlist playlist={data.playlist} /> :
-      <div style={{...playlistStyle}}>
+      {greaterThanMd ? (
         <Playlist playlist={data.playlist} />
-      </div>
-      }
+      ) : (
+        <div style={{ ...playlistStyle }}>
+          <Playlist playlist={data.playlist} />
+        </div>
+      )}
     </>
   );
 }
