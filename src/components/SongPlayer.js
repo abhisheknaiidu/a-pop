@@ -8,6 +8,7 @@ import {
   Slider,
   CardMedia,
   makeStyles,
+  useMediaQuery
 } from "@material-ui/core";
 import {
   SkipPrevious,
@@ -60,6 +61,8 @@ function SongPlayer() {
   const { data } = useQuery(GET_PLAYLIST_SONGS);
   const { state, dispatch } = React.useContext(SongContext);
   const [postionInPlaylist, setPostionInPlaylist] = React.useState(0);
+  const [displayPlaylist, setDisplayPlaylist] = React.useState('none');
+  const greaterThanMd = useMediaQuery((theme) => theme.breakpoints.up("md"));
 
   // It dispatches a new action
   function handleSongPlay() {
@@ -103,6 +106,15 @@ function SongPlayer() {
     );
   }
 
+  function handleDisplayPlaylist() {
+    if(!greaterThanMd) {
+      if(displayPlaylist === 'none')
+        setDisplayPlaylist('block')
+      else
+        setDisplayPlaylist('none')
+    }
+  }
+
   React.useEffect(() => {
     const songIndex = data.playlist.findIndex(
       (song) => song.id === state.song.id
@@ -139,11 +151,11 @@ function SongPlayer() {
         }
       };
     }
-  }, [state.isPlaying]);
+  });
 
   return (
     <>
-      <Card className={classes.container} variant="outlined">
+      <Card className={classes.container} variant="outlined" onClick={handleDisplayPlaylist}>
         <div className={classes.details}>
           <CardContent className={classes.content}>
             <Typography variant="h5" component="h3">
@@ -206,7 +218,13 @@ function SongPlayer() {
         />
         <CardMedia className={classes.thumbnail} image={state.song.thumbnail} />
       </Card>
-      <Playlist playlist={data.playlist} />
+      {greaterThanMd ? (
+        <Playlist playlist={data.playlist} />
+      ) : (
+        <div style={{ display: displayPlaylist }}>
+          <Playlist playlist={data.playlist} />
+        </div>
+      )}
     </>
   );
 }
