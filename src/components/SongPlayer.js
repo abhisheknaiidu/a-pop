@@ -155,9 +155,9 @@ function SongPlayer() {
 
   return (
     <>
-      <Card className={classes.container} variant="outlined" onClick={handleDisplayPlaylist}>
+      <Card className={classes.container} variant="outlined">
         <div className={classes.details}>
-          <CardContent className={classes.content}>
+          <CardContent className={classes.content} onClick={handleDisplayPlaylist}>
             <Typography variant="h5" component="h3">
               {state.song.title}
             </Typography>
