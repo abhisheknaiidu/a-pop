@@ -1,5 +1,4 @@
-import React, { useState } from "react";
-import { useScrollPosition } from "@n8tb1t/use-scroll-position";
+import React from "react";
 import Playlist from "./Playlist";
 import {
   Card,
