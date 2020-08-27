@@ -45,7 +45,7 @@ function Playlist({ playlist }) {
   //     thumbnail: 'https://avatars0.githubusercontent.com/u/55599878?s=460&u=ed7ab421e2b7b0fdc9fd0ddeae2f73feeb72eede&v=4'
   // }
 
-  if(greaterThanMd) {
+  if (greaterThanMd) {
     return (
       <div style={{ margin: "10px 0" }}>
         <Typography color="textSecondary" variant="button">
@@ -56,17 +56,16 @@ function Playlist({ playlist }) {
         ))}
       </div>
     );
-  }
-  else {
+  } else {
     return (
       <div style={{ margin: "10px 0" }}>
         <Typography color="white" variant="button">
           PLAYLIST ({playlist.length})
         </Typography>
-        <Card style={{height:"240px", overflow: "scroll"}}>
-        {playlist.map((song, i) => (
-          <PlaylistSong key={i} song={song} />
-        ))}
+        <Card style={{ height: "240px", overflow: "scroll" }}>
+          {playlist.map((song, i) => (
+            <PlaylistSong key={i} song={song} />
+          ))}
         </Card>
       </div>
     );

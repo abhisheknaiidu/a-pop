@@ -8,7 +8,7 @@ import {
   Slider,
   CardMedia,
   makeStyles,
-  useMediaQuery
+  useMediaQuery,
 } from "@material-ui/core";
 import {
   SkipPrevious,
@@ -61,7 +61,7 @@ function SongPlayer() {
   const { data } = useQuery(GET_PLAYLIST_SONGS);
   const { state, dispatch } = React.useContext(SongContext);
   const [postionInPlaylist, setPostionInPlaylist] = React.useState(0);
-  const [displayPlaylist, setDisplayPlaylist] = React.useState('none');
+  const [displayPlaylist, setDisplayPlaylist] = React.useState("none");
   const greaterThanMd = useMediaQuery((theme) => theme.breakpoints.up("md"));
 
   // It dispatches a new action
@@ -107,11 +107,9 @@ function SongPlayer() {
   }
 
   function handleDisplayPlaylist() {
-    if(!greaterThanMd) {
-      if(displayPlaylist === 'none')
-        setDisplayPlaylist('block')
-      else
-        setDisplayPlaylist('none')
+    if (!greaterThanMd) {
+      if (displayPlaylist === "none") setDisplayPlaylist("block");
+      else setDisplayPlaylist("none");
     }
   }
 
@@ -157,7 +155,10 @@ function SongPlayer() {
     <>
       <Card className={classes.container} variant="outlined">
         <div className={classes.details}>
-          <CardContent className={classes.content} onClick={handleDisplayPlaylist}>
+          <CardContent
+            className={classes.content}
+            onClick={handleDisplayPlaylist}
+          >
             <Typography variant="h5" component="h3">
               {state.song.title}
             </Typography>
