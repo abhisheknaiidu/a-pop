@@ -1,4 +1,5 @@
 import React from "react";
+//import { useScrollPosition } from '@n8tb1t/use-scroll-position';
 import {
   Card,
   Typography,
@@ -6,6 +7,7 @@ import {
   IconButton,
   makeStyles,
   useMediaQuery,
+  Card,
 } from "@material-ui/core";
 import { Delete, PlayArrow, Pause } from "@material-ui/icons";
 import { SongContext } from "../App";
