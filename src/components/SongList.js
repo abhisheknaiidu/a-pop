@@ -1,7 +1,6 @@
 import React from "react";
 import {
   Card,
-  CircularProgress,
   CardMedia,
   CardContent,
   Typography,
@@ -12,13 +11,14 @@ import {
   InputAdornment,
 } from "@material-ui/core";
 import { PlayArrow, Pause, Search } from "@material-ui/icons";
+import Skeleton from "@material-ui/lab/Skeleton"
 import { useSubscription, useMutation } from "@apollo/react-hooks";
 import { GET_SONGS } from "../graphql/subscriptions";
 import { SongContext } from "../App";
 import { REMOVE_OR_ADD_FROM_PLAYLIST } from "../graphql/mutations";
 import PlaylistAddOutlinedIcon from "@material-ui/icons/PlaylistAddOutlined";
 import PlaylistAddCheckIcon from "@material-ui/icons/PlaylistAddCheck";
-
+ 
 const useStyles = makeStyles((theme) => ({
   containerSearch: {
     display: "flex",
@@ -39,6 +39,10 @@ const useStyles = makeStyles((theme) => ({
     display: "flex",
     justifyContent: "space-between",
   },
+  skeletonSongInfo: {
+    width: "100%",
+    justifyContent: "space-between",
+  },
   thumbnail: {
     objectFit: "cover",
     width: 140,
@@ -53,7 +57,7 @@ function SongList() {
 
   // Integrating Search bar inside SongList component
   // for easier functionality / Implementation
-  const [searchTerm, setSearchTerm] = React.useState("");
+  const [searchTerm, setSearchTerm] = React.useState(""); 
 
   // const song = {
   //     title: 'Abhishek',
@@ -67,17 +71,48 @@ function SongList() {
 
   if (loading) {
     return (
-      <div
-        style={{
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "center",
-          marginTop: 50,
-        }}
-      >
-        <CircularProgress />
-      </div>
+      <React.Fragment>
+        <div className={classes.containerSearch}>
+          <TextField
+            className={classes.textInput}
+            placeholder="Search for a song by name!"
+            fullWidth
+            margin="normal"
+            type="text"
+            InputProps={{
+                startAdornment: (
+                  <InputAdornment position="start">
+                    <Search />
+                  </InputAdornment>
+                ),
+            }}
+          />
+        </div>
+        {[...Array(50)].map((i) =>
+          <SkeletonList key={i} />
+        )}
+      </React.Fragment>
     );
+  }
+
+  function SkeletonList() {
+    return (
+      <div className={classes.containerSongList}>
+        <div className={classes.songInfoContainer}>
+          <Skeleton variant="rect" width={140} height={140}></Skeleton>
+          <div className={classes.skeletonSongInfo}>
+            <CardContent>
+              <Typography component="h3" variant="h2">
+                <Skeleton />
+              </Typography>
+              <Typography component="p" variant="h5">
+                <Skeleton width="30%"/>
+              </Typography>
+            </CardContent>
+          </div>
+        </div>
+      </div>
+    )
   }
 
   function handleEditSearchTerm(sch) {

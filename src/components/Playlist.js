@@ -59,7 +59,7 @@ function Playlist({ playlist }) {
   } else {
     return (
       <div style={{ margin: "10px 0" }}>
-        <Typography color="white" variant="button">
+        <Typography color="inherit" variant="button">
           PLAYLIST ({playlist.length})
         </Typography>
         <Card style={{ height: "240px", overflow: "scroll" }}>
