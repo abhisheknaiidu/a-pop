@@ -11,14 +11,14 @@ import {
   InputAdornment,
 } from "@material-ui/core";
 import { PlayArrow, Pause, Search } from "@material-ui/icons";
-import Skeleton from "@material-ui/lab/Skeleton"
+import Skeleton from "@material-ui/lab/Skeleton";
 import { useSubscription, useMutation } from "@apollo/react-hooks";
 import { GET_SONGS } from "../graphql/subscriptions";
 import { SongContext } from "../App";
 import { REMOVE_OR_ADD_FROM_PLAYLIST } from "../graphql/mutations";
 import PlaylistAddOutlinedIcon from "@material-ui/icons/PlaylistAddOutlined";
 import PlaylistAddCheckIcon from "@material-ui/icons/PlaylistAddCheck";
- 
+
 const useStyles = makeStyles((theme) => ({
   containerSearch: {
     display: "flex",
@@ -57,7 +57,7 @@ function SongList() {
 
   // Integrating Search bar inside SongList component
   // for easier functionality / Implementation
-  const [searchTerm, setSearchTerm] = React.useState(""); 
+  const [searchTerm, setSearchTerm] = React.useState("");
 
   // const song = {
   //     title: 'Abhishek',
@@ -80,17 +80,17 @@ function SongList() {
             margin="normal"
             type="text"
             InputProps={{
-                startAdornment: (
-                  <InputAdornment position="start">
-                    <Search />
-                  </InputAdornment>
-                ),
+              startAdornment: (
+                <InputAdornment position="start">
+                  <Search />
+                </InputAdornment>
+              ),
             }}
           />
         </div>
-        {[...Array(50)].map((i) =>
+        {[...Array(50)].map((i) => (
           <SkeletonList key={i} />
-        )}
+        ))}
       </React.Fragment>
     );
   }
@@ -106,13 +106,13 @@ function SongList() {
                 <Skeleton />
               </Typography>
               <Typography component="p" variant="h5">
-                <Skeleton width="30%"/>
+                <Skeleton width="30%" />
               </Typography>
             </CardContent>
           </div>
         </div>
       </div>
-    )
+    );
   }
 
   function handleEditSearchTerm(sch) {
