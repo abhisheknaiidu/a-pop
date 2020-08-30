@@ -54,7 +54,9 @@ const useStyles = makeStyles((theme) => ({
 function SongList() {
   //But now we are subscribing to new data changes
   const { data, loading, error } = useSubscription(GET_SONGS);
-  const { data: { playlist } } = useQuery(GET_PLAYLIST_SONGS);
+  const {
+    data: { playlist },
+  } = useQuery(GET_PLAYLIST_SONGS);
   const classes = useStyles();
 
   // Integrating Search bar inside SongList component
@@ -128,7 +130,7 @@ function SongList() {
   }
 
   function isInPlaylist({ id: idRef }) {
-    return playlist.some(song => song.id === idRef)
+    return playlist.some((song) => song.id === idRef);
   }
 
   return (
