@@ -1,10 +1,7 @@
 <!--
 Thank you for sending the PR! We appreciate you spending the time to work on these changes.
-
 Help us understand your motivation by explaining why you decided to make this change.
-
 Happy contributing!
-
 -->
 
 ## What type of PR is this? (check all applicable)
