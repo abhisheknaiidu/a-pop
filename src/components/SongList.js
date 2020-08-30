@@ -12,10 +12,11 @@ import {
 } from "@material-ui/core";
 import { PlayArrow, Pause, Search } from "@material-ui/icons";
 import Skeleton from "@material-ui/lab/Skeleton";
-import { useSubscription, useMutation } from "@apollo/react-hooks";
+import { useSubscription, useMutation, useQuery } from "@apollo/react-hooks";
 import { GET_SONGS } from "../graphql/subscriptions";
 import { SongContext } from "../App";
 import { REMOVE_OR_ADD_FROM_PLAYLIST } from "../graphql/mutations";
+import { GET_PLAYLIST_SONGS } from "../graphql/queries";
 import PlaylistAddOutlinedIcon from "@material-ui/icons/PlaylistAddOutlined";
 import PlaylistAddCheckIcon from "@material-ui/icons/PlaylistAddCheck";
 
@@ -53,6 +54,9 @@ const useStyles = makeStyles((theme) => ({
 function SongList() {
   //But now we are subscribing to new data changes
   const { data, loading, error } = useSubscription(GET_SONGS);
+  const {
+    data: { playlist },
+  } = useQuery(GET_PLAYLIST_SONGS);
   const classes = useStyles();
 
   // Integrating Search bar inside SongList component
@@ -125,6 +129,10 @@ function SongList() {
     );
   }
 
+  function isInPlaylist({ id: idRef }) {
+    return playlist.some((song) => song.id === idRef);
+  }
+
   return (
     <React.Fragment>
       <div className={classes.containerSearch}>
@@ -148,16 +156,16 @@ function SongList() {
       </div>
       <div>
         {handleDynamicSearch().map((song) => (
-          <Song key={song.id} song={song} />
+          /* There might be a more performant way to achieve this ... */
+          <Song key={song.id} song={song} inPlaylist={isInPlaylist(song)} />
         ))}
       </div>
     </React.Fragment>
   );
 }
 
-function Song({ song }) {
+function Song({ song, inPlaylist }) {
   const [currentSongPlaying, setCurrentSongPlaying] = React.useState(false);
-  const [inPlaylist, setInPlaylist] = React.useState(false);
   const { state, dispatch } = React.useContext(SongContext);
   const classes = useStyles();
   const [addOrRemoveFromPlaylist] = useMutation(REMOVE_OR_ADD_FROM_PLAYLIST, {
@@ -185,7 +193,6 @@ function Song({ song }) {
     addOrRemoveFromPlaylist({
       variables: { input: { ...song, __typename: "Song" } },
     });
-    setInPlaylist(!inPlaylist);
   }
 
   return (
