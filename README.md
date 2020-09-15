@@ -1,4 +1,3 @@
-[![time tracker](https://wakatime.com/badge/github/abhisheknaiidu/Zepta.svg)](https://wakatime.com/badge/github/abhisheknaiidu/Zepta)
 [![contributions welcome](https://img.shields.io/badge/contributions-welcome-brightgreen.svg?style=flat)](https://github.com/dwyl/esta/issues)
 ![](https://visitor-badge.glitch.me/badge?page_id=abhisheknaiidu.A-POP)
 
