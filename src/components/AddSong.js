@@ -66,7 +66,7 @@ function AddSong() {
   function getYoutubeInfo(player) {
     const { title, video_id, author } = player.getVideoData();
     const duration = player.getDuration();
-    const thumbnail = `http://img.youtube.com/vi/${video_id}/0.jpg`;
+    const thumbnail = `https://img.youtube.com/vi/${video_id}/0.jpg`;
     return {
       title,
       artist: author,
@@ -173,6 +173,7 @@ function AddSong() {
             src={thumbnail}
             alt="Song thumbnail"
             className={classes.thumbnail}
+            loading="lazy"
           />
           <TextField
             value={title}

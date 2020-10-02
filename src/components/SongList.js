@@ -92,8 +92,8 @@ function SongList() {
             }}
           />
         </div>
-        {[...Array(50)].map((i) => (
-          <SkeletonList key={i} />
+        {[...Array(50)].map((i, j) => (
+          <SkeletonList key={j} />
         ))}
       </React.Fragment>
     );
