@@ -77,7 +77,7 @@ function SongList() {
     if (!el) {
       return false;
     }
-    const result = el.getBoundingClientRect().bottom <= window.innerHeight && window.scrollY > lastScrollPosition;
+    const result = (el.getBoundingClientRect().bottom - 500) <= window.innerHeight && window.scrollY > lastScrollPosition;
     lastScrollPosition = window.scrollY;
     return result;
   }
@@ -229,7 +229,7 @@ function SongList() {
         ))}
       </div>
       { songFetchMoreRunning && 
-        [...Array(10)].map((i, j) => (
+        [...Array(2)].map((i, j) => (
           <SkeletonList key={j} />
         ))
       }
