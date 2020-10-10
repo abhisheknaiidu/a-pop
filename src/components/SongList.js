@@ -17,7 +17,7 @@ import { useSubscription, useMutation, useQuery } from "@apollo/react-hooks";
 import { GET_SONGS } from "../graphql/subscriptions";
 import { SongContext } from "../App";
 import { REMOVE_OR_ADD_FROM_PLAYLIST } from "../graphql/mutations";
-import { GET_PLAYLIST_SONGS } from "../graphql/queries";
+import { GET_PLAYLIST_SONGS, GET_PAGINATED_SONGS } from "../graphql/queries";
 import PlaylistAddOutlinedIcon from "@material-ui/icons/PlaylistAddOutlined";
 import PlaylistAddCheckIcon from "@material-ui/icons/PlaylistAddCheck";
 import NightIcon from "./NightIcon";
@@ -61,10 +61,21 @@ function SongList() {
   const [darkTheme, changeTheme] = useMyTheme();
 
   //But now we are subscribing to new data changes
-  const { data, loading, error } = useSubscription(GET_SONGS);
+  const { data, loading, error } = useQuery(
+    GET_PAGINATED_SONGS,
+    {
+      variables: {
+        offset: 5,
+        limit: 10
+      }
+    }
+  );
+
   const {
     data: { playlist },
   } = useQuery(GET_PLAYLIST_SONGS);
+
+  // const { data: paginatedSongs, loading: paginatedSongsLoad, error: paginatedSongsError } = useQuery(GET_PAGINATED_SONGS);
   const classes = useStyles();
 
   // Integrating Search bar inside SongList component
