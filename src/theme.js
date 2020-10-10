@@ -26,6 +26,9 @@ export default function ThemeProvider({ children }) {
       // Use the system font.
       fontSize: 12,
       fontFamily: "Balsamiq Sans",
+      "@media (min-width:600px)": {
+        fontSize: "1.5rem",
+      },
     },
     overrides: {
       MuiSlider: {
@@ -41,6 +44,30 @@ export default function ThemeProvider({ children }) {
       },
     },
   });
+
+  theme.typography.h5 = {
+    fontSize: "0.67rem",
+    fontWeight: 200,
+    "@media (min-width:600px)": {
+      fontSize: "0.4rem",
+    },
+    [theme.breakpoints.up("md")]: {
+      fontSize: "1.2rem",
+      fontWeight: 100,
+    },
+  };
+
+  theme.typography.body1 = {
+    fontSize: "0.62rem",
+    fontWeight: 100,
+    "@media (min-width:600px)": {
+      fontSize: "0.4rem",
+    },
+    [theme.breakpoints.up("md")]: {
+      fontSize: "0.9rem",
+      fontWeight: 100,
+    },
+  };
 
   return (
     <Theme.Provider value={darkTheme}>
