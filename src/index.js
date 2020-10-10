@@ -1,20 +1,20 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import App from "./App";
-import { MuiThemeProvider, CssBaseline } from "@material-ui/core";
-import theme from "./theme";
+import { CssBaseline } from "@material-ui/core";
+import ThemeProvider from "./theme";
 import { ApolloProvider } from "@apollo/react-hooks";
 import client from "./graphql/client";
 import * as serviceWorker from "./serviceWorker";
 
 ReactDOM.render(
   <ApolloProvider client={client}>
-    <MuiThemeProvider theme={theme}>
+    <ThemeProvider>
       <CssBaseline />
       <App />
-    </MuiThemeProvider>
+    </ThemeProvider>
   </ApolloProvider>,
   document.getElementById("root")
 );
 
-serviceWorker.register();
+serviceWorker.unregister();
