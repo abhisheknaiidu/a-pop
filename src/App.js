@@ -11,7 +11,7 @@ export const SongContext = React.createContext({
     id: "0f1f3cb3-f0f1-44b1-9ea5-2bf419d08dce",
     title: "Roshni 🏮",
     artist: "SickFlip & Ritviz",
-    thumbnail: "http://img.youtube.com/vi/cAQVYXwiWi0/0.jpg",
+    thumbnail: "https://img.youtube.com/vi/cAQVYXwiWi0/0.jpg",
     url: "https://www.youtube.com/watch?v=cAQVYXwiWi0",
     duration: 187,
   },
