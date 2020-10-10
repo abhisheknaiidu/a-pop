@@ -13,8 +13,7 @@ import {
 } from "@material-ui/core";
 import { PlayArrow, Pause, Search } from "@material-ui/icons";
 import Skeleton from "@material-ui/lab/Skeleton";
-import { useSubscription, useMutation, useQuery } from "@apollo/react-hooks";
-import { GET_SONGS } from "../graphql/subscriptions";
+import { useMutation, useQuery } from "@apollo/react-hooks";
 import { SongContext } from "../App";
 import { REMOVE_OR_ADD_FROM_PLAYLIST } from "../graphql/mutations";
 import { GET_PLAYLIST_SONGS, GET_PAGINATED_SONGS } from "../graphql/queries";
@@ -59,17 +58,55 @@ function SongList() {
   const greaterThanSm = useMediaQuery((theme) => theme.breakpoints.up("sm"));
 
   const [darkTheme, changeTheme] = useMyTheme();
+  const [songFetchMoreRunning, setSongFetchMoreRunning] = React.useState(false);
 
   //But now we are subscribing to new data changes
-  const { data, loading, error } = useQuery(
+  const { data, loading, error, fetchMore } = useQuery(
     GET_PAGINATED_SONGS,
     {
       variables: {
-        offset: 5,
+        offset: 0,
         limit: 10
       }
     }
   );
+
+  let lastScrollPosition = window.scrollY;
+  
+  function hasScrolledDownToBottom(el) {
+    if (!el) {
+      return false;
+    }
+    const result = el.getBoundingClientRect().bottom <= window.innerHeight && window.scrollY > lastScrollPosition;
+    lastScrollPosition = window.scrollY;
+    return result;
+  }
+
+  React.useEffect(() => {
+    const trackScrolling = () => {
+      const wrappedElement = document.getElementById('song-list');
+      if (hasScrolledDownToBottom(wrappedElement) && !songFetchMoreRunning && !loading && data) {
+        setSongFetchMoreRunning(true);
+        fetchMore({
+          variables: {
+            offset: data.songs.length
+          },
+          updateQuery: (prev, { fetchMoreResult }) => {
+            setSongFetchMoreRunning(false);
+            if (!fetchMoreResult) return prev;
+            return Object.assign({}, prev, {
+              songs: [...prev.songs, ...fetchMoreResult.songs]
+            });
+          }
+        })
+      }
+    };
+    document.addEventListener('scroll', trackScrolling);
+    // Specify how to clean up after this effect:
+    return function cleanup() {
+      document.removeEventListener('scroll', trackScrolling);
+    };
+  });
 
   const {
     data: { playlist },
@@ -185,7 +222,7 @@ function SongList() {
           </IconButton>
         )}
       </div>
-      <div>
+      <div id="song-list">
         {handleDynamicSearch().map((song) => (
           /* There might be a more performant way to achieve this ... */
           <Song key={song.id} song={song} inPlaylist={isInPlaylist(song)} />
