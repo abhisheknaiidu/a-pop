@@ -228,6 +228,11 @@ function SongList() {
           <Song key={song.id} song={song} inPlaylist={isInPlaylist(song)} />
         ))}
       </div>
+      { songFetchMoreRunning && 
+        [...Array(10)].map((i, j) => (
+          <SkeletonList key={j} />
+        ))
+      }
     </React.Fragment>
   );
 }
