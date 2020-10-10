@@ -173,7 +173,7 @@ function AddSong() {
             src={thumbnail}
             alt="Song thumbnail"
             className={classes.thumbnail}
-            loading="lazy"
+            // loading="lazy"
           />
           <TextField
             value={title}
