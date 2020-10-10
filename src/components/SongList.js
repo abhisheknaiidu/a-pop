@@ -9,6 +9,7 @@ import {
   makeStyles,
   TextField,
   InputAdornment,
+  useMediaQuery,
 } from "@material-ui/core";
 import { PlayArrow, Pause, Search } from "@material-ui/icons";
 import Skeleton from "@material-ui/lab/Skeleton";
@@ -19,6 +20,9 @@ import { REMOVE_OR_ADD_FROM_PLAYLIST } from "../graphql/mutations";
 import { GET_PLAYLIST_SONGS } from "../graphql/queries";
 import PlaylistAddOutlinedIcon from "@material-ui/icons/PlaylistAddOutlined";
 import PlaylistAddCheckIcon from "@material-ui/icons/PlaylistAddCheck";
+import NightIcon from "./NightIcon";
+import DayIcon from "./DayIcon";
+import { useMyTheme } from "../theme";
 
 const useStyles = makeStyles((theme) => ({
   containerSearch: {
@@ -52,6 +56,10 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 function SongList() {
+  const greaterThanSm = useMediaQuery((theme) => theme.breakpoints.up("sm"));
+
+  const [darkTheme, changeTheme] = useMyTheme();
+
   //But now we are subscribing to new data changes
   const { data, loading, error } = useSubscription(GET_SONGS);
   const {
@@ -153,6 +161,16 @@ function SongList() {
             ),
           }}
         />
+        {!greaterThanSm && (
+          <IconButton
+            color="primary"
+            size="big"
+            style={{ marginLeft: "auto" }}
+            onClick={() => changeTheme(!darkTheme)}
+          >
+            <>{!darkTheme ? <NightIcon /> : <DayIcon />}</>
+          </IconButton>
+        )}
       </div>
       <div>
         {handleDynamicSearch().map((song) => (
@@ -209,17 +227,13 @@ function Song({ song, inPlaylist }) {
             </Typography>
           </CardContent>
           <CardActions>
-            <IconButton onClick={handleSongPlay} size="small" color="primary">
+            <IconButton onClick={handleSongPlay} size="small">
               {/* here, everyone in the song list, are getting updated, 
                             but we just need the appropriate one to get updated 
                             so we can check for that using useEffects */}
               {currentSongPlaying ? <Pause /> : <PlayArrow />}
             </IconButton>
-            <IconButton
-              onClick={handleRemoveOrAddFromPlaylist}
-              size="small"
-              color="primary"
-            >
+            <IconButton onClick={handleRemoveOrAddFromPlaylist} size="small">
               {inPlaylist ? (
                 <PlaylistAddCheckIcon />
               ) : (
