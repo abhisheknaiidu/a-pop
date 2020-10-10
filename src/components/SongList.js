@@ -51,7 +51,7 @@ const useStyles = makeStyles((theme) => ({
   thumbnail: {
     objectFit: "cover",
     width: 140,
-    height: 140,
+    height: 76,
   },
 }));
 
@@ -146,6 +146,8 @@ function SongList() {
       <div className={classes.containerSearch}>
         {/* <input type='text' placeholder='Search for a song by name!' /> */}
         <TextField
+          // variant="body1"
+          // component="p"
           className={classes.textInput}
           value={searchTerm}
           onChange={handleEditSearchTerm}
@@ -219,10 +221,20 @@ function Song({ song, inPlaylist }) {
         <CardMedia className={classes.thumbnail} image={thumbnail} />
         <div className={classes.songInfo}>
           <CardContent>
-            <Typography gutterBottom variant="h5" component="h2">
+            <Typography
+              className={classes.title}
+              gutterBottom
+              variant="h5"
+              component="h2"
+            >
               {title}
             </Typography>
-            <Typography variant="body1" component="p" color="textSecondary">
+            <Typography
+              className={classes.artist}
+              variant="body1"
+              component="p"
+              color="textSecondary"
+            >
               {artist}
             </Typography>
           </CardContent>
