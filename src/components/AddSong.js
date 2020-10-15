@@ -67,8 +67,9 @@ function AddSong() {
     const { title, video_id, author } = player.getVideoData();
     const duration = player.getDuration();
     const thumbnail = `https://img.youtube.com/vi/${video_id}/0.jpg`;
+    // console.log(title.slice(0, 10));
     return {
-      title,
+      title: title.slice(0, 25),
       artist: author,
       video_id,
       duration,
@@ -182,6 +183,7 @@ function AddSong() {
             onChange={handleSongDetails}
             error={handleInputError("title")}
             helperText={handleInputError("title") && "Fill out the title field"}
+            // inputProps={{ maxLength: 22 }}
             label="Title"
             fullWidth
           />
@@ -194,6 +196,7 @@ function AddSong() {
               handleInputError("artist") && "Fill out the artist field"
             }
             onChange={handleSongDetails}
+            inputProps={{ maxLength: 17 }}
             label="Artist"
             fullWidth
           />

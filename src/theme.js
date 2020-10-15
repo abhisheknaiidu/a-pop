@@ -24,8 +24,8 @@ export default function ThemeProvider({ children }) {
     },
     typography: {
       // Use the system font.
-      fontSize: 12,
-      fontFamily: "Balsamiq Sans",
+      // fontSize: 12,
+      fontFamily: "Fira Code",
       "@media (min-width:600px)": {
         fontSize: "1.5rem",
       },
@@ -47,24 +47,28 @@ export default function ThemeProvider({ children }) {
 
   theme.typography.h5 = {
     fontSize: "0.67rem",
+    fontFamily: "Fira Code",
     fontWeight: 200,
     "@media (min-width:600px)": {
       fontSize: "0.4rem",
     },
     [theme.breakpoints.up("md")]: {
       fontSize: "1.2rem",
+      fontFamily: "Fira Code",
       fontWeight: 100,
     },
   };
 
   theme.typography.body1 = {
     fontSize: "0.62rem",
+    fontFamily: "Fira Code",
     fontWeight: 100,
     "@media (min-width:600px)": {
       fontSize: "0.4rem",
     },
     [theme.breakpoints.up("md")]: {
       fontSize: "0.9rem",
+      fontFamily: "Fira Code",
       fontWeight: 100,
     },
   };
