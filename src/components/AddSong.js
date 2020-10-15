@@ -212,18 +212,18 @@ function AddSong() {
             helperText={
               handleInputError("thumbnail") && "Fill out the thumbnail field"
             }
-            onChange={ handleSongDetails }
+            onChange={handleSongDetails}
             label="Thubmnail"
             fullWidth
           />
         </DialogContent>
         <DialogActions>
-          <Button onClick={ handleCloseDialog } color="secondary">
+          <Button onClick={handleCloseDialog} color="secondary">
             Cancel
           </Button>
           <Button
-            disabled={ !readyToAdding }
-            onClick={ handleAddSong }
+            disabled={!readyToAdding}
+            onClick={handleAddSong}
             variant="contained"
             color="secondary"
           >
