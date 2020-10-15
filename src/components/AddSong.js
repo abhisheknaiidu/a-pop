@@ -141,9 +141,9 @@ function AddSong() {
   React.useEffect(() => {
     const { url, thumbnail, duration, title, artist } = song;
     if (url?.length && duration && thumbnail?.length && artist?.length && title?.length) {
-      setReadyToAdding(true)
+      setReadyToAdding(true);
     } else {
-      setReadyToAdding(false)
+      setReadyToAdding(false);
     }
   }, [song]);
 
