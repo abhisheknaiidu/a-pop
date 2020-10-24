@@ -12,7 +12,7 @@
 ![Apop](public/apop-demo.gif)
 
 [A-POP](https://a-pop.vercel.app/) is a HD Music Stream Application 🎧 built in order to provide high sound clarity in
-respective Youtube or SoundCloud Songs and without ads and video streaming! 
+respective Youtube or SoundCloud Songs and without ads and video streaming!
 
 **Just Music and Chill** 😉
 
@@ -20,10 +20,10 @@ It's actually a hack for students, to listen to songs and bgm's from Youtube wit
 
 ## Table of Contents
 
-* [Demo](#demo)
-* [Technology Stack](#technology-stack)
-* [Installation & Usage](#installation-&-usage)
-* [Testing](#testing)
+- [Demo](#demo)
+- [Technology Stack](#technology-stack)
+- [Installation & Usage](#installation-&-usage)
+- [Testing](#testing)
 
 ## Demo
 
@@ -37,8 +37,8 @@ API is being hosted on Heroku using Apollo Client!
 
 It is built using GraphQL, Apollo Client, Material-UI and obviously React!
 
-| Technology    | Description                               | Link ↘️                                     |
-|---------------|-------------------------------------------|--------------------------------------------|
+| Technology    | Description                               | Link ↘️                                    |
+| ------------- | ----------------------------------------- | ------------------------------------------ |
 | HTML5         | Hyper Text Markup Language                | ----                                       |
 | CSS3          | Cascading Style Sheets                    | ----                                       |
 | JavaScript    | High Level, Dynamic, Interpreted Language | ----                                       |
