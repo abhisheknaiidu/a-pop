@@ -9,8 +9,6 @@
 [![Stars](https://img.shields.io/github/stars/abhisheknaiidu/a-pop)](https://github.com/abhisheknaiidu/a-pop)
 [![Forks](https://img.shields.io/github/forks/abhisheknaiidu/a-pop)](https://github.com/abhisheknaiidu/a-pop/fork)
 
-![Apop](public/apop-demo.gif)
-
 [A-POP](https://a-pop.vercel.app/) is a HD Music Stream Application 🎧 built in order to provide high sound clarity in
 respective Youtube or SoundCloud Songs and without ads and video streaming!
 
