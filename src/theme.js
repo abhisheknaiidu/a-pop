@@ -76,8 +76,9 @@ export default function ThemeProvider({ children }) {
   return (
     <Theme.Provider value={darkTheme}>
       <changeTheme.Provider value={setDarkTheme}>
-    // children is a special property of React components which contains any child elements defined within the component.
-    // and they don’t know their children exactly ahead of time. 
+        // children is a special property of React components which contains any
+        child elements defined within the component. // and they don’t know
+        their children exactly ahead of time.
         <MuiThemeProvider theme={theme}>{children}</MuiThemeProvider>
       </changeTheme.Provider>
     </Theme.Provider>
