@@ -1,5 +1,4 @@
 <h1 align="center"> A-POP 🎶 </h1>
-<hr>
 
 [![contributions welcome](https://img.shields.io/badge/contributions-welcome-brightgreen.svg?style=flat)](https://github.com/dwyl/esta/issues)
 ![](https://visitor-badge.glitch.me/badge?page_id=abhisheknaiidu.A-POP)
@@ -10,12 +9,11 @@
 [![Stars](https://img.shields.io/github/stars/abhisheknaiidu/a-pop)](https://github.com/abhisheknaiidu/a-pop)
 [![Forks](https://img.shields.io/github/forks/abhisheknaiidu/a-pop)](https://github.com/abhisheknaiidu/a-pop/fork)
 
-[A-POP](https://a-pop.vercel.app/) is a HD Music Stream Application 🎧 built in order to provide high sound clarity in
-respective Youtube or SoundCloud Songs and without ads and video streaming!
+[A-POP](https://a-pop.abhisheknaidu.tech/) is a HD Music Stream and Sharing Application 🎧 built in order to provide high sound clarity for Youtube or SoundCloud Songs and without ads and even video streaming!
 
 **Just Music and Chill** 😉
 
-It's actually a hack for students, to listen to songs and bgm's from Youtube without even buffering data for video streams.
+It's actually a hack for students, to listen to songs and bgm's from Youtube without even buffering data for video streams and also can share with friends.
 
 ## Table of Contents
 
