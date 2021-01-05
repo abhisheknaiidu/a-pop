@@ -36,7 +36,6 @@ View the application at [a-pop](https://a-pop.abhisheknaidu.tech/)
 
 </div>
 
-
 API is being hosted on Heroku using Apollo Client!
 
 ## Technology Stack
