@@ -1,4 +1,9 @@
-# 🎵 A-POP 🎵
+<div align="center">
+
+<img alt="a-pop" style="object-fit: cover; width:400px; height:180px;" src="public/a-pop.png"> </img>
+
+</div>
+<hr>
 
 [![contributions welcome](https://img.shields.io/badge/contributions-welcome-brightgreen.svg?style=flat)](https://github.com/dwyl/esta/issues)
 ![](https://visitor-badge.glitch.me/badge?page_id=abhisheknaiidu.A-POP)
@@ -26,6 +31,15 @@ It's actually a hack for students, to listen to songs and bgm's from Youtube wit
 ## Demo
 
 View the application at [Apop](https://a-pop.vercel.app)
+
+<hr>
+
+<div align="center">
+
+<img alt="apop_demo" style="width: 450px; height: 400px" src="public/a-pop-demo.gif"> </img>
+
+</div>
+
 
 API is being hosted on Heroku using Apollo Client!
 
