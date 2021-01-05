@@ -40,7 +40,6 @@ View the application at [Apop](https://a-pop.vercel.app)
 
 </div>
 
-
 API is being hosted on Heroku using Apollo Client!
 
 ## Technology Stack
