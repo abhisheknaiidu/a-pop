@@ -1,8 +1,4 @@
-<div align="center">
-
-<img alt="a-pop" style="object-fit: cover; width:400px; height:180px;" src="public/a-pop.png"> </img>
-
-</div>
+<h1 align="center"> A-POP 🎶 </h1>
 <hr>
 
 [![contributions welcome](https://img.shields.io/badge/contributions-welcome-brightgreen.svg?style=flat)](https://github.com/dwyl/esta/issues)
@@ -30,7 +26,7 @@ It's actually a hack for students, to listen to songs and bgm's from Youtube wit
 
 ## Demo
 
-View the application at [Apop](https://a-pop.vercel.app)
+View the application at [a-pop](https://a-pop.abhisheknaidu.tech/)
 
 <hr>
 
