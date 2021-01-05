@@ -1,6 +1,6 @@
-import React, { createContext, useState, useContext } from 'react';
-import { createMuiTheme, MuiThemeProvider } from '@material-ui/core/styles';
-import { deepPurple, grey } from '@material-ui/core/colors';
+import React, { createContext, useState, useContext } from "react";
+import { createMuiTheme, MuiThemeProvider } from "@material-ui/core/styles";
+import { deepPurple, grey } from "@material-ui/core/colors";
 
 const Theme = createContext();
 const changeTheme = createContext();
@@ -14,7 +14,7 @@ export default function ThemeProvider({ children }) {
 
   const theme = createMuiTheme({
     palette: {
-      type: darkTheme ? 'dark' : 'light',
+      type: darkTheme ? "dark" : "light",
       primary: {
         main: grey[500],
       },
@@ -25,50 +25,50 @@ export default function ThemeProvider({ children }) {
     typography: {
       // Use the system font.
       // fontSize: 12,
-      fontFamily: 'Fira Code',
-      '@media (min-width:600px)': {
-        fontSize: '1.5rem',
+      fontFamily: "Fira Code",
+      "@media (min-width:600px)": {
+        fontSize: "1.5rem",
       },
     },
     overrides: {
       MuiSlider: {
         thumb: {
-          color: 'grey',
+          color: "grey",
         },
         track: {
-          color: 'green',
+          color: "green",
         },
         rail: {
-          color: 'grey',
+          color: "grey",
         },
       },
     },
   });
 
   theme.typography.h5 = {
-    fontSize: '0.67rem',
-    fontFamily: 'Fira Code',
+    fontSize: "0.67rem",
+    fontFamily: "Fira Code",
     fontWeight: 200,
-    '@media (min-width:600px)': {
-      fontSize: '0.4rem',
+    "@media (min-width:600px)": {
+      fontSize: "0.4rem",
     },
-    [theme.breakpoints.up('md')]: {
-      fontSize: '1.2rem',
-      fontFamily: 'Fira Code',
+    [theme.breakpoints.up("md")]: {
+      fontSize: "1.2rem",
+      fontFamily: "Fira Code",
       fontWeight: 100,
     },
   };
 
   theme.typography.body1 = {
-    fontSize: '0.62rem',
-    fontFamily: 'Fira Code',
+    fontSize: "0.62rem",
+    fontFamily: "Fira Code",
     fontWeight: 100,
-    '@media (min-width:600px)': {
-      fontSize: '0.4rem',
+    "@media (min-width:600px)": {
+      fontSize: "0.4rem",
     },
-    [theme.breakpoints.up('md')]: {
-      fontSize: '0.9rem',
-      fontFamily: 'Fira Code',
+    [theme.breakpoints.up("md")]: {
+      fontSize: "0.9rem",
+      fontFamily: "Fira Code",
       fontWeight: 100,
     },
   };
