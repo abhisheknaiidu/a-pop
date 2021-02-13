@@ -44,6 +44,7 @@ function AddSong() {
   const [url, setUrl] = React.useState("");
   const [dialog, showDialog] = React.useState(false);
   const [playable, setPlayable] = React.useState(false);
+  const [readyToAdding, setReadyToAdding] = React.useState(false);
   const { data } = useSubscription(GET_SONGS);
   const [song, setSong] = React.useState({
     title: "",
@@ -110,13 +111,7 @@ function AddSong() {
     try {
       const { url, thumbnail, duration, title, artist } = song;
       await addSong({
-        variables: {
-          url: url.length > 0 ? url : null,
-          duration: duration > 0 ? duration : null,
-          thumbnail: thumbnail.length > 0 ? thumbnail : null,
-          artist: artist.length > 0 ? artist : null,
-          title: title.length > 0 ? title : null,
-        },
+        variables: { url, duration, thumbnail, artist, title },
       });
       handleCloseDialog();
       setSong({
@@ -142,6 +137,15 @@ function AddSong() {
     const isPlayable = YoutubePlayer.canPlay(url) || Soundcloud.canPlay(url);
     setPlayable(isPlayable);
   }, [url]); // its gonna be dependent and sync with the url
+
+  React.useEffect(() => {
+    const { url, thumbnail, duration, title, artist } = song;
+    if (url?.length && duration && thumbnail?.length && artist?.length && title?.length) {
+      setReadyToAdding(true);
+    } else {
+      setReadyToAdding(false);
+    }
+  }, [song]);
 
   function handleCloseDialog() {
     showDialog(false);
@@ -217,7 +221,12 @@ function AddSong() {
           <Button onClick={handleCloseDialog} color="secondary">
             Cancel
           </Button>
-          <Button color="primary" onClick={handleAddSong} variant="outlined">
+          <Button
+            disabled={!readyToAdding}
+            onClick={handleAddSong}
+            variant="contained"
+            color="secondary"
+          >
             Add Song
           </Button>
         </DialogActions>
